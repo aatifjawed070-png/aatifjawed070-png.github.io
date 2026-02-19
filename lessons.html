@@ -1,0 +1,735 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>HTML, CSS & JavaScript Lessons - Code Learning Hub</title>
+  <meta name="description" content="Learn web development step by step. Switch between 12 lessons using tabs on a single page. Beginner-friendly explanations and code examples.">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <link rel="stylesheet" href="styles.css">
+
+  <style>
+    /* Tabs styles */
+    .tabs-wrapper {
+      margin-top: 20px;
+      background: #ffffff;
+      border-radius: 14px;
+      border: 1px solid rgba(226, 232, 240, 0.95);
+      box-shadow: 0 5px 16px rgba(15, 23, 42, 0.05);
+      overflow: hidden;
+    }
+
+    .tabs-header {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 4px;
+      padding: 8px;
+      background: #f9fafb;
+      border-bottom: 1px solid #e5e7eb;
+    }
+
+    .tab-btn {
+      border: none;
+      background: transparent;
+      padding: 6px 10px;
+      font-size: 13px;
+      border-radius: 999px;
+      cursor: pointer;
+      color: #6b7280;
+      transition: background 0.15s ease-out, color 0.15s ease-out;
+    }
+
+    .tab-btn:hover {
+      background: #e5edff;
+      color: #1d4ed8;
+    }
+
+    .tab-btn.active {
+      background: #2563eb;
+      color: #f9fafb;
+    }
+
+    .tab-content {
+      display: none;
+      padding: 18px 18px 20px;
+    }
+
+    .tab-content.active {
+      display: block;
+    }
+
+    .lesson-body p {
+      font-size: 14px;
+      color: #4b5563;
+      margin-bottom: 8px;
+    }
+
+    .lesson-body ul,
+    .lesson-body ol {
+      margin-left: 18px;
+      font-size: 14px;
+      color: #4b5563;
+      margin-bottom: 8px;
+    }
+
+    .lesson-body code {
+      background: #f3f4f6;
+      padding: 2px 4px;
+      border-radius: 4px;
+      font-size: 12px;
+    }
+
+    .lesson-meta {
+      font-size: 12px;
+      color: #9ca3af;
+      margin-bottom: 10px;
+    }
+
+    pre.lesson-code {
+      margin-top: 8px;
+      background: #0f172a;
+      color: #e5e7eb;
+      padding: 12px 14px;
+      border-radius: 10px;
+      font-size: 13px;
+      overflow: auto;
+    }
+
+    @media (max-width: 640px) {
+      .tabs-header {
+        justify-content: flex-start;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Header -->
+  <header class="header">
+    <div class="nav-container">
+      <a href="index.html" class="brand">Code Learning Hub</a>
+      <nav class="nav-links">
+        <a href="index.html">Home</a>
+        <a href="course.html">Course</a>
+        <a href="articles.html">Articles</a>
+        <a href="about.html">About</a>
+        <a href="contact.html">Contact</a>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Main -->
+  <main class="container">
+    <!-- Page intro -->
+    <section class="section" style="margin-top:10px;">
+      <p style="font-size:13px; color:#6b7280;">
+        Course &gt; HTML, CSS &amp; JavaScript &gt; Lessons
+      </p>
+    </section>
+
+    <section class="section">
+      <h1 style="font-size:24px; margin-bottom:8px;">Lessons (Tabbed View)</h1>
+      <p style="font-size:14px; color:#6b7280; max-width:640px;">
+        Use the tabs below to switch between lessons. Start from Lesson 1 and move forward in order for a smooth learning path.[web:186][web:187][web:192]
+      </p>
+    </section>
+
+    <!-- Tabs -->
+    <section class="section">
+      <div class="tabs-wrapper">
+        <!-- Tab buttons -->
+        <div class="tabs-header">
+          <button class="tab-btn active" data-tab="lesson1">Lesson 1</button>
+          <button class="tab-btn" data-tab="lesson2">Lesson 2</button>
+          <button class="tab-btn" data-tab="lesson3">Lesson 3</button>
+          <button class="tab-btn" data-tab="lesson4">Lesson 4</button>
+          <button class="tab-btn" data-tab="lesson5">Lesson 5</button>
+          <button class="tab-btn" data-tab="lesson6">Lesson 6</button>
+          <button class="tab-btn" data-tab="lesson7">Lesson 7</button>
+          <button class="tab-btn" data-tab="lesson8">Lesson 8</button>
+          <button class="tab-btn" data-tab="lesson9">Lesson 9</button>
+          <button class="tab-btn" data-tab="lesson10">Lesson 10</button>
+          <button class="tab-btn" data-tab="lesson11">Lesson 11</button>
+          <button class="tab-btn" data-tab="lesson12">Lesson 12</button>
+        </div>
+
+        <!-- ========== LESSON 1 ========== -->
+        <div id="lesson1" class="tab-content active">
+          <div class="lesson-meta">
+            Lesson 1 · Beginner · Topic: What is the Web?
+          </div>
+          <h2>Lesson 1: What Is the Web?</h2>
+          <div class="lesson-body">
+            <p>
+              The web is a network of computers that send files to each other over the internet using standard rules called protocols.[web:180][web:182][web:185][web:193][web:194]
+            </p>
+
+            <h3 style="margin-top:10px;">1. Browser, Server, and HTTP</h3>
+            <p>When you visit a website:[web:180][web:182][web:188][web:194]</p>
+            <ol>
+              <li>Your browser (client) sends a request asking for a web page.</li>
+              <li>A web server receives the request and finds the correct files.</li>
+              <li>The server sends back HTML, CSS, JavaScript, and assets.</li>
+              <li>Your browser reads the HTML, fetches linked files, and renders the page.</li>
+            </ol>
+            <p>This uses HTTP/HTTPS, which defines how requests and responses are formatted.[web:180][web:182][web:194]</p>
+
+            <h3 style="margin-top:10px;">2. Domain Names and IPs</h3>
+            <p>
+              Domain names like <code>example.com</code> map to numeric IP addresses that identify servers. DNS performs this translation for your browser.[web:180][web:185][web:194]
+            </p>
+
+            <h3 style="margin-top:10px;">3. HTML, CSS, and JavaScript</h3>
+            <ul>
+              <li><strong>HTML:</strong> Structure and content.[web:186][web:187][web:192]</li>
+              <li><strong>CSS:</strong> Visual design and layout.[web:186][web:187][web:192]</li>
+              <li><strong>JavaScript:</strong> Interactivity and behavior.[web:186][web:187][web:192]</li>
+            </ul>
+
+            <h3 style="margin-top:10px;">4. Try It Yourself</h3>
+            <p>Create <code>index.html</code> and paste:</p>
+
+            <pre class="lesson-code">
+&lt;!DOCTYPE html&gt;
+&lt;html lang="en"&gt;
+&lt;head&gt;
+  &lt;meta charset="UTF-8"&gt;
+  &lt;title&gt;My First Web Page&lt;/title&gt;
+&lt;/head&gt;
+&lt;body&gt;
+  &lt;h1&gt;Hello, Web!&lt;/h1&gt;
+  &lt;p&gt;This is my first web page.&lt;/p&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+            </pre>
+
+            <h3 style="margin-top:10px;">Practice</h3>
+            <ul>
+              <li>Create a text file called <code>notes.txt</code> and, in your own words, describe how a browser and server talk to each other.</li>
+              <li>Show your <code>index.html</code> to a friend and explain which part is HTML, which part is the browser, and what the server would be in a real website.</li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- ========== LESSON 2 ========== -->
+        <div id="lesson2" class="tab-content">
+          <div class="lesson-meta">
+            Lesson 2 · Beginner · Topic: HTML Page Structure
+          </div>
+          <h2>Lesson 2: HTML Page Structure</h2>
+          <div class="lesson-body">
+            <p>
+              Every HTML document follows a common skeleton that browsers understand.[web:168][web:170][web:186]
+            </p>
+
+            <h3 style="margin-top:10px;">1. The Skeleton</h3>
+            <pre class="lesson-code">
+&lt;!DOCTYPE html&gt;
+&lt;html lang="en"&gt;
+&lt;head&gt;
+  &lt;meta charset="UTF-8"&gt;
+  &lt;title&gt;Page Title&lt;/title&gt;
+&lt;/head&gt;
+&lt;body&gt;
+  &lt;!-- Visible content here --&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+            </pre>
+
+            <ul>
+              <li><code>&lt;!DOCTYPE html&gt;</code> = HTML5 declaration.[web:168][web:170]</li>
+              <li><code>&lt;html&gt;</code> wraps the entire document.[web:168][web:170]</li>
+              <li><code>&lt;head&gt;</code> holds meta data, title, links to CSS/JS.[web:168][web:170]</li>
+              <li><code>&lt;body&gt;</code> holds visible content.[web:168][web:170]</li>
+            </ul>
+
+            <h3 style="margin-top:10px;">2. Semantic Structure</h3>
+            <p>Use semantic tags to describe sections of your page.[web:167][web:169][web:187]</p>
+
+            <pre class="lesson-code">
+&lt;body&gt;
+  &lt;header&gt;...&lt;/header&gt;
+  &lt;main&gt;
+    &lt;section&gt;...&lt;/section&gt;
+  &lt;/main&gt;
+  &lt;footer&gt;...&lt;/footer&gt;
+&lt;/body&gt;
+            </pre>
+
+            <h3 style="margin-top:10px;">Practice</h3>
+            <ul>
+              <li>Create a new page <code>structure-test.html</code> that uses <code>&lt;header&gt;</code>, <code>&lt;main&gt;</code>, and <code>&lt;footer&gt;</code> with any dummy text.</li>
+              <li>View the page in your browser and inspect it with DevTools (Elements tab) to see how the browser represents the HTML structure.</li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- ========== LESSON 3 ========== -->
+        <div id="lesson3" class="tab-content">
+          <div class="lesson-meta">
+            Lesson 3 · Beginner · Topic: Text, Headings & Links
+          </div>
+          <h2>Lesson 3: Text, Headings & Links</h2>
+          <div class="lesson-body">
+            <p>
+              This lesson focuses on text content: headings, paragraphs, and navigation links.[web:167][web:168][web:170]
+            </p>
+
+            <h3 style="margin-top:10px;">1. Headings</h3>
+            <pre class="lesson-code">
+&lt;h1&gt;Main Title&lt;/h1&gt;
+&lt;h2&gt;Section Title&lt;/h2&gt;
+&lt;h3&gt;Subsection&lt;/h3&gt;
+            </pre>
+            <p>Use one <code>&lt;h1&gt;</code> per page and maintain a logical order.[web:167][web:168][web:137]</p>
+
+            <h3 style="margin-top:10px;">2. Paragraphs</h3>
+            <pre class="lesson-code">
+&lt;p&gt;This is a paragraph explaining something.&lt;/p&gt;
+            </pre>
+
+            <h3 style="margin-top:10px;">3. Links</h3>
+            <pre class="lesson-code">
+&lt;a href="https://www.example.com"&gt;Visit Example&lt;/a&gt;
+&lt;a href="about.html"&gt;About Me&lt;/a&gt;
+            </pre>
+
+            <h3 style="margin-top:10px;">Practice</h3>
+            <ul>
+              <li>Create an <code>about.html</code> page with one <code>&lt;h1&gt;</code>, at least two <code>&lt;h2&gt;</code> sections, and a few paragraphs.</li>
+              <li>Add links so you can go from <code>index.html</code> to <code>about.html</code> and back again.</li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- ========== LESSON 4 ========== -->
+        <div id="lesson4" class="tab-content">
+          <div class="lesson-meta">
+            Lesson 4 · Beginner · Topic: Images, Lists & Basic Layout
+          </div>
+          <h2>Lesson 4: Images, Lists & Basic Layout</h2>
+          <div class="lesson-body">
+            <p>
+              You now know how to structure text. Let’s add images, lists, and a simple layout section.[web:167][web:168][web:170]
+            </p>
+
+            <h3 style="margin-top:10px;">1. Images</h3>
+            <pre class="lesson-code">
+&lt;img src="profile.jpg" alt="My profile photo" width="200"&gt;
+            </pre>
+            <p>
+              Always include descriptive <code>alt</code> text for accessibility and SEO.[web:167][web:170][web:137]
+            </p>
+
+            <h3 style="margin-top:10px;">2. Lists</h3>
+            <pre class="lesson-code">
+&lt;ul&gt;
+  &lt;li&gt;HTML&lt;/li&gt;
+  &lt;li&gt;CSS&lt;/li&gt;
+  &lt;li&gt;JavaScript&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;Sign up&lt;/li&gt;
+  &lt;li&gt;Log in&lt;/li&gt;
+  &lt;li&gt;Start learning&lt;/li&gt;
+&lt;/ol&gt;
+            </pre>
+
+            <h3 style="margin-top:10px;">3. Simple “Profile” Section</h3>
+            <pre class="lesson-code">
+&lt;section&gt;
+  &lt;h2&gt;About Me&lt;/h2&gt;
+  &lt;img src="me.jpg" alt="Photo of me" width="150"&gt;
+  &lt;p&gt;Hi, I'm learning web development.&lt;/p&gt;
+  &lt;h3&gt;Technologies I'm learning&lt;/h3&gt;
+  &lt;ul&gt;
+    &lt;li&gt;HTML&lt;/li&gt;
+    &lt;li&gt;CSS&lt;/li&gt;
+    &lt;li&gt;JavaScript&lt;/li&gt;
+  &lt;/ul&gt;
+&lt;/section&gt;
+            </pre>
+
+            <h3 style="margin-top:10px;">Practice</h3>
+            <ul>
+              <li>Create a “skills” section with an image of yourself and an unordered list of at least 5 skills you are learning.</li>
+              <li>Make sure every image on your page has a meaningful <code>alt</code> attribute that describes the image.</li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- ========== LESSON 5 ========== -->
+        <div id="lesson5" class="tab-content">
+          <div class="lesson-meta">
+            Lesson 5 · Beginner · Topic: CSS Basics & Selectors
+          </div>
+          <h2>Lesson 5: CSS Basics – Linking CSS & Selectors</h2>
+          <div class="lesson-body">
+            <p>
+              CSS controls how your HTML looks. First you link a CSS file, then you target elements with selectors.[web:160][web:166]
+            </p>
+
+            <h3 style="margin-top:10px;">1. Linking CSS</h3>
+            <pre class="lesson-code">
+&lt;head&gt;
+  &lt;meta charset="UTF-8"&gt;
+  &lt;title&gt;My Site&lt;/title&gt;
+  &lt;link rel="stylesheet" href="styles.css"&gt;
+&lt;/head&gt;
+            </pre>
+
+            <h3 style="margin-top:10px;">2. Basic Selectors</h3>
+            <pre class="lesson-code">
+/* styles.css */
+body {
+  font-family: system-ui, sans-serif;
+}
+
+h1 {
+  color: #1d4ed8;
+}
+
+.highlight {
+  background: #fef3c7;
+}
+
+#main-title {
+  text-transform: uppercase;
+}
+            </pre>
+            <ul>
+              <li>Element selector: <code>h1 { ... }</code>[web:160][web:166]</li>
+              <li>Class selector: <code>.highlight { ... }</code>[web:160][web:166]</li>
+              <li>ID selector: <code>#main-title { ... }</code>[web:160][web:166]</li>
+            </ul>
+
+            <h3 style="margin-top:10px;">Practice</h3>
+            <ul>
+              <li>Create a <code>styles.css</code> file if you don’t have one and link it to all your pages.</li>
+              <li>Add at least one element selector, one class selector, and one ID selector and confirm in the browser that each one works.</li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- ========== LESSON 6 ========== -->
+        <div id="lesson6" class="tab-content">
+          <div class="lesson-meta">
+            Lesson 6 · Beginner · Topic: Colors, Fonts & Box Model
+          </div>
+          <h2>Lesson 6: Colors, Fonts & Box Model</h2>
+          <div class="lesson-body">
+            <p>
+              The CSS box model explains how size and spacing work. You’ll also set basic colors and fonts.[web:160][web:166]
+            </p>
+
+            <h3 style="margin-top:10px;">1. Colors & Fonts</h3>
+            <pre class="lesson-code">
+body {
+  background-color: #f9fafb;
+  color: #111827;
+  font-family: system-ui, -apple-system, sans-serif;
+}
+
+a {
+  color: #2563eb;
+}
+            </pre>
+
+            <h3 style="margin-top:10px;">2. Box Model</h3>
+            <pre class="lesson-code">
+.card {
+  background: #ffffff;
+  padding: 16px;      /* space inside */
+  margin: 12px 0;     /* space outside */
+  border: 1px solid #e5e7eb;
+}
+            </pre>
+            <p>Each element has content, padding, border, and margin.[web:160][web:166]</p>
+
+            <h3 style="margin-top:10px;">Practice</h3>
+            <ul>
+              <li>Wrap a block of content in a <code>.card</code> class and experiment with different <code>padding</code>, <code>margin</code>, and <code>border</code> values.</li>
+              <li>Use DevTools to hover over the element and visually inspect the box model (content, padding, border, and margin).</li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- ========== LESSON 7 ========== -->
+        <div id="lesson7" class="tab-content">
+          <div class="lesson-meta">
+            Lesson 7 · Beginner · Topic: Flexbox Layout
+          </div>
+          <h2>Lesson 7: Layout with Flexbox</h2>
+          <div class="lesson-body">
+            <p>
+              Flexbox makes it easier to align elements and build simple responsive layouts.[web:160][web:161]
+            </p>
+
+            <h3 style="margin-top:10px;">1. Flex Container</h3>
+            <pre class="lesson-code">
+.container {
+  display: flex;
+  gap: 16px;
+}
+
+.card {
+  flex: 1;
+}
+            </pre>
+
+            <h3 style="margin-top:10px;">2. Simple 3-Card Layout</h3>
+            <pre class="lesson-code">
+&lt;div class="container"&gt;
+  &lt;div class="card"&gt;Card 1&lt;/div&gt;
+  &lt;div class="card"&gt;Card 2&lt;/div&gt;
+  &lt;div class="card"&gt;Card 3&lt;/div&gt;
+&lt;/div&gt;
+            </pre>
+
+            <h3 style="margin-top:10px;">Practice</h3>
+            <ul>
+              <li>Create a row of three “feature cards” using flexbox (for example: HTML, CSS, JavaScript) that shrink nicely on small screens.</li>
+              <li>Experiment with <code>justify-content</code> and <code>align-items</code> values to see how alignment changes.</li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- ========== LESSON 8 ========== -->
+        <div id="lesson8" class="tab-content">
+          <div class="lesson-meta">
+            Lesson 8 · Beginner · Topic: Responsive Design
+          </div>
+          <h2>Lesson 8: Responsive Design with Media Queries</h2>
+          <div class="lesson-body">
+            <p>
+              Responsive design means your layout adapts to different screen sizes.[web:160][web:159]
+            </p>
+
+            <h3 style="margin-top:10px;">1. Basic Media Query</h3>
+            <pre class="lesson-code">
+/* Desktop default */
+
+.cards {
+  display: flex;
+}
+
+/* Small screens */
+@media (max-width: 640px) {
+  .cards {
+    flex-direction: column;
+  }
+}
+            </pre>
+
+            <h3 style="margin-top:10px;">Practice</h3>
+            <ul>
+              <li>Take your three‑card flexbox layout and add a media query so on small screens the cards stack vertically.</li>
+              <li>Resize your browser window and verify that the layout switches between horizontal and vertical at the breakpoint.</li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- ========== LESSON 9 ========== -->
+        <div id="lesson9" class="tab-content">
+          <div class="lesson-meta">
+            Lesson 9 · Beginner · Topic: JS Variables & Types
+          </div>
+          <h2>Lesson 9: JavaScript Basics – Variables & Types</h2>
+          <div class="lesson-body">
+            <p>
+              JavaScript runs in the browser and lets you add logic and interactivity.[web:186][web:187][web:192]
+            </p>
+
+            <h3 style="margin-top:10px;">1. Including JS</h3>
+            <pre class="lesson-code">
+&lt;script src="script.js"&gt;&lt;/script&gt;
+            </pre>
+
+            <h3 style="margin-top:10px;">2. Variables & Types</h3>
+            <pre class="lesson-code">
+let name = "Alex";       // string
+let age = 19;            // number
+let isStudent = true;    // boolean
+let skills = ["HTML", "CSS", "JS"]; // array
+            </pre>
+
+            <h3 style="margin-top:10px;">Practice</h3>
+            <ul>
+              <li>In <code>script.js</code>, create variables for your name, age, and favorite language and log a short introduction sentence to the console.</li>
+              <li>Open DevTools → Console and confirm the values print correctly with no errors.</li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- ========== LESSON 10 ========== -->
+        <div id="lesson10" class="tab-content">
+          <div class="lesson-meta">
+            Lesson 10 · Beginner · Topic: If & Loops
+          </div>
+          <h2>Lesson 10: Control Flow – If & Loops</h2>
+          <div class="lesson-body">
+            <p>
+              Control flow lets you make decisions and repeat actions in your code.[web:186][web:192]
+            </p>
+
+            <h3 style="margin-top:10px;">1. If / Else</h3>
+            <pre class="lesson-code">
+let score = 80;
+
+if (score >= 50) {
+  console.log("Passed");
+} else {
+  console.log("Try again");
+}
+            </pre>
+
+            <h3 style="margin-top:10px;">2. For Loop</h3>
+            <pre class="lesson-code">
+for (let i = 0; i &lt; 3; i++) {
+  console.log("Step", i);
+}
+            </pre>
+
+            <h3 style="margin-top:10px;">Practice</h3>
+            <ul>
+              <li>Write a script that takes a score variable and logs “A”, “B”, “C”, or “Fail” based on the value using <code>if</code>/<code>else if</code>/<code>else</code>.</li>
+              <li>Create an array of 5 technologies and use a <code>for</code> loop to log each one to the console.</li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- ========== LESSON 11 ========== -->
+        <div id="lesson11" class="tab-content">
+          <div class="lesson-meta">
+            Lesson 11 · Beginner · Topic: DOM & Events
+          </div>
+          <h2>Lesson 11: DOM Manipulation & Events</h2>
+          <div class="lesson-body">
+            <p>
+              The DOM (Document Object Model) is a JavaScript representation of your HTML. You can select elements and respond to events.[web:186][web:187][web:192]
+            </p>
+
+            <h3 style="margin-top:10px;">1. Selecting Elements</h3>
+            <pre class="lesson-code">
+const title = document.querySelector("h1");
+title.textContent = "Updated Title";
+            </pre>
+
+            <h3 style="margin-top:10px;">2. Click Event</h3>
+            <pre class="lesson-code">
+const button = document.querySelector("#myButton");
+button.addEventListener("click", () =&gt; {
+  alert("Button clicked!");
+});
+            </pre>
+
+            <h3 style="margin-top:10px;">Practice</h3>
+            <ul>
+              <li>Add a button to your page that changes the text of a heading when clicked (for example, from “My Site” to “My Awesome Site”).</li>
+              <li>Create an input and a button that, when clicked, append the typed text into a list element on the page.</li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- ========== LESSON 12 ========== -->
+        <div id="lesson12" class="tab-content">
+          <div class="lesson-meta">
+            Lesson 12 · Beginner · Project: Todo List App
+          </div>
+          <h2>Lesson 12: Mini Project – Todo List</h2>
+          <div class="lesson-body">
+            <p>
+              In this project, you’ll combine HTML, CSS, and JavaScript to build a simple todo list.[web:139][web:192]
+            </p>
+
+            <h3 style="margin-top:10px;">1. HTML Structure</h3>
+            <pre class="lesson-code">
+&lt;div class="todo-app"&gt;
+  &lt;h1&gt;Todo List&lt;/h1&gt;
+  &lt;input id="todo-input" type="text" placeholder="Add a task"&gt;
+  &lt;button id="add-btn"&gt;Add&lt;/button&gt;
+  &lt;ul id="todo-list"&gt;&lt;/ul&gt;
+&lt;/div&gt;
+            </pre>
+
+            <h3 style="margin-top:10px;">2. Basic Styling (CSS)</h3>
+            <pre class="lesson-code">
+.todo-app {
+  max-width: 400px;
+  margin: 0 auto;
+  background: #ffffff;
+  padding: 16px;
+  border-radius: 10px;
+  box-shadow: 0 10px 20px rgba(15, 23, 42, 0.08);
+}
+            </pre>
+
+            <h3 style="margin-top:10px;">3. JavaScript Logic</h3>
+            <pre class="lesson-code">
+const input = document.querySelector("#todo-input");
+const addBtn = document.querySelector("#add-btn");
+const list = document.querySelector("#todo-list");
+
+addBtn.addEventListener("click", () =&gt; {
+  const text = input.value.trim();
+  if (!text) return;
+
+  const li = document.createElement("li");
+  li.textContent = text;
+
+  li.addEventListener("click", () =&gt; {
+    li.classList.toggle("done");
+  });
+
+  list.appendChild(li);
+  input.value = "";
+});
+            </pre>
+
+            <h3 style="margin-top:10px;">Practice</h3>
+            <ul>
+              <li>Extend your todo list so clicking a task twice deletes it, or add a small “🗑” delete button for each list item.</li>
+              <li>Style completed tasks with a different color or a line‑through using a <code>.done</code> CSS class.</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CTA -->
+    <section class="section section-cta">
+      <h2>Keep Practicing</h2>
+      <p>After finishing all 12 lessons, repeat the mini project or build your own small website idea.</p>
+      <a href="course.html" class="btn">Back to Course Overview</a>
+    </section>
+  </main>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <p>&copy; 2026 Code Learning Hub. All rights reserved.</p>
+    <p>
+      <a href="privacy.html">Privacy Policy</a> ·
+      <a href="about.html">About</a> ·
+      <a href="contact.html">Contact</a>
+    </p>
+  </footer>
+
+  <!-- Tabs JS -->
+  <script>
+    const tabButtons = document.querySelectorAll('.tab-btn');
+    const tabContents = document.querySelectorAll('.tab-content');
+
+    tabButtons.forEach((btn) => {
+      btn.addEventListener('click', () => {
+        const targetId = btn.dataset.tab;
+
+        tabButtons.forEach((b) => b.classList.remove('active'));
+        tabContents.forEach((c) => c.classList.remove('active'));
+
+        btn.classList.add('active');
+        document.getElementById(targetId).classList.add('active');
+      });
+    });
+  </script>
+</body>
+</html>
