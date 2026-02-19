@@ -1,0 +1,1390 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DevResume - Resume & Portfolio Generator for Developers</title>
+    <style>
+        :root {
+            --primary: #2563eb;
+            --primary-hover: #1d4ed8;
+            --secondary: #64748b;
+            --surface: #ffffff;
+            --background: #f8fafc;
+            --text: #0f172a;
+            --text-secondary: #64748b;
+            --border: #e2e8f0;
+            --success: #10b981;
+            --warning: #f59e0b;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: var(--background);
+            color: var(--text);
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        /* Header */
+        header {
+            background: var(--surface);
+            border-bottom: 1px solid var(--border);
+            padding: 20px 0;
+            margin-bottom: 30px;
+        }
+
+        .header-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 24px;
+            font-weight: 700;
+            color: var(--primary);
+        }
+
+        .pricing-badge {
+            background: linear-gradient(135deg, var(--primary), #3b82f6);
+            color: white;
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 14px;
+            font-weight: 600;
+        }
+
+        /* Ad Placements */
+        .ad-container {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 16px;
+            text-align: center;
+            margin: 20px 0;
+            min-height: 100px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--text-secondary);
+            font-size: 13px;
+        }
+
+        .ad-label {
+            position: absolute;
+            top: 4px;
+            right: 4px;
+            font-size: 10px;
+            color: var(--text-secondary);
+            background: var(--background);
+            padding: 2px 6px;
+            border-radius: 4px;
+        }
+
+        .ad-horizontal {
+            width: 100%;
+            min-height: 90px;
+        }
+
+        .ad-sidebar {
+            min-height: 250px;
+            margin-bottom: 20px;
+        }
+
+        .ad-large {
+            min-height: 280px;
+        }
+
+        /* Main Layout */
+        .main-layout {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+            margin-bottom: 30px;
+        }
+
+        .panel {
+            background: var(--surface);
+            border-radius: 12px;
+            padding: 30px;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+        }
+
+        .panel-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 24px;
+            padding-bottom: 16px;
+            border-bottom: 2px solid var(--border);
+        }
+
+        .panel-title {
+            font-size: 20px;
+            font-weight: 600;
+            color: var(--text);
+        }
+
+        .template-selector {
+            display: flex;
+            gap: 8px;
+        }
+
+        .template-btn {
+            padding: 6px 12px;
+            border: 2px solid var(--border);
+            background: var(--surface);
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 13px;
+            font-weight: 500;
+            transition: all 0.2s;
+        }
+
+        .template-btn:hover {
+            border-color: var(--primary);
+            color: var(--primary);
+        }
+
+        .template-btn.active {
+            background: var(--primary);
+            color: white;
+            border-color: var(--primary);
+        }
+
+        .template-btn.pro {
+            position: relative;
+            opacity: 0.6;
+        }
+
+        .template-btn.pro::after {
+            content: '🔒 PRO';
+            position: absolute;
+            top: -8px;
+            right: -8px;
+            background: var(--warning);
+            color: white;
+            font-size: 9px;
+            padding: 2px 4px;
+            border-radius: 4px;
+        }
+
+        /* Form Styles */
+        .form-section {
+            margin-bottom: 24px;
+        }
+
+        .form-section-title {
+            font-size: 16px;
+            font-weight: 600;
+            margin-bottom: 12px;
+            color: var(--text);
+        }
+
+        .form-group {
+            margin-bottom: 16px;
+        }
+
+        label {
+            display: block;
+            font-size: 14px;
+            font-weight: 500;
+            margin-bottom: 6px;
+            color: var(--text-secondary);
+        }
+
+        input, textarea {
+            width: 100%;
+            padding: 10px 12px;
+            border: 1px solid var(--border);
+            border-radius: 6px;
+            font-size: 14px;
+            font-family: inherit;
+            transition: border-color 0.2s;
+        }
+
+        input:focus, textarea:focus {
+            outline: none;
+            border-color: var(--primary);
+        }
+
+        textarea {
+            resize: vertical;
+            min-height: 80px;
+        }
+
+        .skills-input {
+            display: flex;
+            gap: 8px;
+        }
+
+        .skills-input input {
+            flex: 1;
+        }
+
+        .add-btn {
+            padding: 10px 16px;
+            background: var(--primary);
+            color: white;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: 500;
+            transition: background 0.2s;
+        }
+
+        .add-btn:hover {
+            background: var(--primary-hover);
+        }
+
+        .chips-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-top: 8px;
+        }
+
+        .chip {
+            background: #e0e7ff;
+            color: var(--primary);
+            padding: 6px 12px;
+            border-radius: 16px;
+            font-size: 13px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .chip-remove {
+            cursor: pointer;
+            font-weight: 700;
+            opacity: 0.7;
+        }
+
+        .chip-remove:hover {
+            opacity: 1;
+        }
+
+        .project-item, .education-item {
+            background: var(--background);
+            padding: 16px;
+            border-radius: 8px;
+            margin-bottom: 12px;
+            position: relative;
+        }
+
+        .remove-item {
+            position: absolute;
+            top: 12px;
+            right: 12px;
+            background: #fee2e2;
+            color: #dc2626;
+            border: none;
+            padding: 4px 8px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 12px;
+            font-weight: 600;
+        }
+
+        /* Preview Styles */
+        .preview-container {
+            background: white;
+            min-height: 600px;
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            overflow: hidden;
+        }
+
+        .preview-tabs {
+            display: flex;
+            border-bottom: 1px solid var(--border);
+            background: var(--background);
+        }
+
+        .preview-tab {
+            flex: 1;
+            padding: 12px;
+            text-align: center;
+            cursor: pointer;
+            font-weight: 500;
+            border-bottom: 2px solid transparent;
+            transition: all 0.2s;
+        }
+
+        .preview-tab:hover {
+            background: rgba(37, 99, 235, 0.05);
+        }
+
+        .preview-tab.active {
+            background: white;
+            border-bottom-color: var(--primary);
+            color: var(--primary);
+        }
+
+        .preview-content {
+            padding: 30px;
+        }
+
+        /* Resume Template Styles */
+        .resume-preview {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .resume-header {
+            text-align: center;
+            padding-bottom: 20px;
+            border-bottom: 2px solid var(--primary);
+            margin-bottom: 20px;
+        }
+
+        .resume-name {
+            font-size: 32px;
+            font-weight: 700;
+            color: var(--text);
+            margin-bottom: 8px;
+        }
+
+        .resume-title {
+            font-size: 18px;
+            color: var(--primary);
+            margin-bottom: 12px;
+        }
+
+        .resume-contact {
+            display: flex;
+            justify-content: center;
+            gap: 16px;
+            flex-wrap: wrap;
+            font-size: 14px;
+            color: var(--text-secondary);
+        }
+
+        .resume-section {
+            margin-bottom: 24px;
+        }
+
+        .resume-section-title {
+            font-size: 20px;
+            font-weight: 600;
+            color: var(--primary);
+            margin-bottom: 12px;
+            padding-bottom: 8px;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .resume-skills {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+
+        .resume-skill {
+            background: #e0e7ff;
+            color: var(--primary);
+            padding: 6px 14px;
+            border-radius: 16px;
+            font-size: 14px;
+        }
+
+        .resume-project, .resume-education {
+            margin-bottom: 16px;
+        }
+
+        .resume-project-name, .resume-education-degree {
+            font-size: 16px;
+            font-weight: 600;
+            color: var(--text);
+            margin-bottom: 4px;
+        }
+
+        .resume-project-desc, .resume-education-school {
+            font-size: 14px;
+            color: var(--text-secondary);
+            margin-bottom: 4px;
+        }
+
+        .resume-project-link {
+            font-size: 13px;
+            color: var(--primary);
+            text-decoration: none;
+        }
+
+        /* Portfolio Template Styles */
+        .portfolio-preview {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            min-height: 600px;
+            padding: 40px;
+        }
+
+        .portfolio-hero {
+            text-align: center;
+            padding: 60px 20px;
+        }
+
+        .portfolio-name {
+            font-size: 48px;
+            font-weight: 700;
+            margin-bottom: 12px;
+        }
+
+        .portfolio-title {
+            font-size: 24px;
+            opacity: 0.9;
+            margin-bottom: 24px;
+        }
+
+        .portfolio-summary {
+            max-width: 600px;
+            margin: 0 auto 32px;
+            font-size: 16px;
+            line-height: 1.8;
+            opacity: 0.95;
+        }
+
+        .portfolio-links {
+            display: flex;
+            justify-content: center;
+            gap: 16px;
+            flex-wrap: wrap;
+        }
+
+        .portfolio-link {
+            background: rgba(255, 255, 255, 0.2);
+            padding: 10px 20px;
+            border-radius: 8px;
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            backdrop-filter: blur(10px);
+            transition: all 0.3s;
+        }
+
+        .portfolio-link:hover {
+            background: rgba(255, 255, 255, 0.3);
+            transform: translateY(-2px);
+        }
+
+        .portfolio-section {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 12px;
+            padding: 30px;
+            margin-bottom: 24px;
+        }
+
+        .portfolio-section-title {
+            font-size: 28px;
+            font-weight: 600;
+            margin-bottom: 20px;
+        }
+
+        .portfolio-projects {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+        }
+
+        .portfolio-project-card {
+            background: rgba(255, 255, 255, 0.15);
+            padding: 20px;
+            border-radius: 8px;
+            transition: transform 0.3s;
+        }
+
+        .portfolio-project-card:hover {
+            transform: translateY(-4px);
+        }
+
+        .portfolio-project-name {
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 8px;
+        }
+
+        .portfolio-project-desc {
+            font-size: 14px;
+            opacity: 0.9;
+            margin-bottom: 12px;
+        }
+
+        .portfolio-skills-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+            gap: 12px;
+        }
+
+        .portfolio-skill-card {
+            background: rgba(255, 255, 255, 0.15);
+            padding: 12px;
+            border-radius: 8px;
+            text-align: center;
+            font-weight: 500;
+        }
+
+        /* Action Buttons */
+        .action-buttons {
+            display: flex;
+            gap: 12px;
+            margin-top: 24px;
+            padding-top: 24px;
+            border-top: 1px solid var(--border);
+        }
+
+        .btn {
+            flex: 1;
+            padding: 12px 24px;
+            border: none;
+            border-radius: 8px;
+            font-size: 15px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+
+        .btn-primary {
+            background: var(--primary);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background: var(--primary-hover);
+            transform: translateY(-1px);
+            box-shadow: 0 4px 12px rgba(37, 99, 235, 0.3);
+        }
+
+        .btn-secondary {
+            background: var(--background);
+            color: var(--text);
+            border: 1px solid var(--border);
+        }
+
+        .btn-secondary:hover {
+            background: var(--surface);
+            border-color: var(--primary);
+        }
+
+        .btn-success {
+            background: var(--success);
+            color: white;
+        }
+
+        .btn-success:hover {
+            background: #059669;
+        }
+
+        /* Pro Modal */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 1000;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .modal.active {
+            display: flex;
+        }
+
+        .modal-content {
+            background: white;
+            border-radius: 16px;
+            padding: 40px;
+            max-width: 500px;
+            width: 90%;
+            text-align: center;
+        }
+
+        .modal-icon {
+            font-size: 48px;
+            margin-bottom: 16px;
+        }
+
+        .modal-title {
+            font-size: 24px;
+            font-weight: 700;
+            margin-bottom: 12px;
+        }
+
+        .modal-text {
+            color: var(--text-secondary);
+            margin-bottom: 24px;
+            line-height: 1.6;
+        }
+
+        .pricing-box {
+            background: var(--background);
+            padding: 24px;
+            border-radius: 12px;
+            margin-bottom: 24px;
+        }
+
+        .price {
+            font-size: 36px;
+            font-weight: 700;
+            color: var(--primary);
+            margin-bottom: 8px;
+        }
+
+        .price-desc {
+            font-size: 14px;
+            color: var(--text-secondary);
+        }
+
+        .features-list {
+            text-align: left;
+            margin-bottom: 24px;
+        }
+
+        .feature-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 8px;
+            font-size: 14px;
+        }
+
+        .feature-icon {
+            color: var(--success);
+            font-weight: 700;
+        }
+
+        .modal-buttons {
+            display: flex;
+            gap: 12px;
+        }
+
+        @media (max-width: 768px) {
+            .main-layout {
+                grid-template-columns: 1fr;
+            }
+
+            .header-content {
+                flex-direction: column;
+                gap: 12px;
+            }
+
+            .portfolio-name {
+                font-size: 32px;
+            }
+
+            .portfolio-title {
+                font-size: 18px;
+            }
+        }
+
+        .toast {
+            position: fixed;
+            bottom: 24px;
+            right: 24px;
+            background: var(--success);
+            color: white;
+            padding: 16px 24px;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+            display: none;
+            align-items: center;
+            gap: 12px;
+            z-index: 1001;
+        }
+
+        .toast.active {
+            display: flex;
+            animation: slideIn 0.3s ease-out;
+        }
+
+        @keyframes slideIn {
+            from {
+                transform: translateX(400px);
+            }
+            to {
+                transform: translateX(0);
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="header-content">
+            <div class="logo">⚡ DevResume</div>
+            <div class="pricing-badge">FREE • Upgrade to PRO for ₹299</div>
+        </div>
+    </header>
+
+    <div class="container">
+        <!-- Top Banner Ad (728x90 or responsive) -->
+        <div class="ad-container ad-horizontal" style="position: relative;">
+            <span class="ad-label">Advertisement</span>
+            <!-- Google AdSense code here -->
+            <ins class="adsbygoogle"
+                 style="display:block"
+                 data-ad-client="ca-pub-XXXXXXXXXX"
+                 data-ad-slot="XXXXXXXXXX"
+                 data-ad-format="horizontal"
+                 data-full-width-responsive="true"></ins>
+            <span style="color: var(--text-secondary);">📢 Your Ad Here (728x90 Banner)</span>
+        </div>
+
+        <div class="main-layout">
+            <!-- Form Panel -->
+            <div class="panel">
+                <!-- Sidebar Ad Above Form (300x250) -->
+                <div class="ad-container ad-sidebar" style="position: relative; margin-bottom: 24px;">
+                    <span class="ad-label">Advertisement</span>
+                    <ins class="adsbygoogle"
+                         style="display:block"
+                         data-ad-client="ca-pub-XXXXXXXXXX"
+                         data-ad-slot="XXXXXXXXXX"
+                         data-ad-format="rectangle"></ins>
+                    <span style="color: var(--text-secondary);">📢 Your Ad Here (300x250 Rectangle)</span>
+                </div>
+
+                <div class="panel-header">
+                    <h2 class="panel-title">📝 Your Information</h2>
+                </div>
+
+                <form id="resumeForm">
+                    <!-- Personal Info -->
+                    <div class="form-section">
+                        <div class="form-section-title">Personal Information</div>
+                        <div class="form-group">
+                            <label>Full Name *</label>
+                            <input type="text" id="fullName" placeholder="John Doe" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Professional Title *</label>
+                            <input type="text" id="title" placeholder="Full Stack Developer" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Location</label>
+                            <input type="text" id="location" placeholder="Delhi, India">
+                        </div>
+                        <div class="form-group">
+                            <label>Email *</label>
+                            <input type="email" id="email" placeholder="john@example.com" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Phone</label>
+                            <input type="tel" id="phone" placeholder="+91 98765 43210">
+                        </div>
+                        <div class="form-group">
+                            <label>GitHub</label>
+                            <input type="url" id="github" placeholder="https://github.com/johndoe">
+                        </div>
+                        <div class="form-group">
+                            <label>LinkedIn</label>
+                            <input type="url" id="linkedin" placeholder="https://linkedin.com/in/johndoe">
+                        </div>
+                        <div class="form-group">
+                            <label>Portfolio URL</label>
+                            <input type="url" id="portfolio" placeholder="https://johndoe.dev">
+                        </div>
+                    </div>
+
+                    <!-- Summary -->
+                    <div class="form-section">
+                        <div class="form-section-title">Professional Summary</div>
+                        <div class="form-group">
+                            <textarea id="summary" placeholder="Passionate full-stack developer with 3+ years of experience building web applications..."></textarea>
+                        </div>
+                    </div>
+
+                    <!-- Skills -->
+                    <div class="form-section">
+                        <div class="form-section-title">Skills</div>
+                        <div class="form-group">
+                            <div class="skills-input">
+                                <input type="text" id="skillInput" placeholder="Add a skill (e.g., Angular, Python)">
+                                <button type="button" class="add-btn" onclick="addSkill()">+ Add</button>
+                            </div>
+                            <div class="chips-container" id="skillsContainer"></div>
+                        </div>
+                    </div>
+
+                    <!-- Projects -->
+                    <div class="form-section">
+                        <div class="form-section-title">Projects</div>
+                        <div id="projectsContainer"></div>
+                        <button type="button" class="btn btn-secondary" onclick="addProject()">+ Add Project</button>
+                    </div>
+
+                    <!-- Education -->
+                    <div class="form-section">
+                        <div class="form-section-title">Education</div>
+                        <div id="educationContainer"></div>
+                        <button type="button" class="btn btn-secondary" onclick="addEducation()">+ Add Education</button>
+                    </div>
+                </form>
+
+                <!-- Sidebar Ad Below Form (300x600 or 300x250) -->
+                <div class="ad-container ad-large" style="position: relative; margin-top: 24px;">
+                    <span class="ad-label">Advertisement</span>
+                    <ins class="adsbygoogle"
+                         style="display:block"
+                         data-ad-client="ca-pub-XXXXXXXXXX"
+                         data-ad-slot="XXXXXXXXXX"
+                         data-ad-format="vertical"></ins>
+                    <span style="color: var(--text-secondary);">📢 Your Ad Here (300x600 Skyscraper)</span>
+                </div>
+            </div>
+
+            <!-- Preview Panel -->
+            <div class="panel">
+                <div class="panel-header">
+                    <h2 class="panel-title">👀 Live Preview</h2>
+                    <div class="template-selector">
+                        <button class="template-btn active" onclick="switchTemplate('modern')">Modern</button>
+                        <button class="template-btn pro" onclick="showProModal()">Dark</button>
+                        <button class="template-btn pro" onclick="showProModal()">Minimal</button>
+                    </div>
+                </div>
+
+                <div class="preview-tabs">
+                    <div class="preview-tab active" onclick="switchPreview('resume')">Resume</div>
+                    <div class="preview-tab" onclick="switchPreview('portfolio')">Portfolio</div>
+                </div>
+
+                <div class="preview-container">
+                    <div class="preview-content" id="previewContent">
+                        <!-- Resume Preview -->
+                        <div class="resume-preview" id="resumePreview">
+                            <div class="resume-header">
+                                <div class="resume-name" id="previewName">Your Name</div>
+                                <div class="resume-title" id="previewTitle">Your Title</div>
+                                <div class="resume-contact" id="previewContact">
+                                    <span>📧 your@email.com</span>
+                                    <span>📍 Your Location</span>
+                                </div>
+                            </div>
+
+                            <div class="resume-section" id="summarySection" style="display:none;">
+                                <div class="resume-section-title">Summary</div>
+                                <p id="previewSummary"></p>
+                            </div>
+
+                            <div class="resume-section" id="skillsSection" style="display:none;">
+                                <div class="resume-section-title">Skills</div>
+                                <div class="resume-skills" id="previewSkills"></div>
+                            </div>
+
+                            <div class="resume-section" id="projectsSection" style="display:none;">
+                                <div class="resume-section-title">Projects</div>
+                                <div id="previewProjects"></div>
+                            </div>
+
+                            <div class="resume-section" id="educationSection" style="display:none;">
+                                <div class="resume-section-title">Education</div>
+                                <div id="previewEducation"></div>
+                            </div>
+                        </div>
+
+                        <!-- Portfolio Preview -->
+                        <div class="portfolio-preview" id="portfolioPreview" style="display:none;">
+                            <div class="portfolio-hero">
+                                <div class="portfolio-name" id="portfolioName">Your Name</div>
+                                <div class="portfolio-title" id="portfolioTitle">Your Title</div>
+                                <div class="portfolio-summary" id="portfolioSummary">Your professional summary will appear here</div>
+                                <div class="portfolio-links" id="portfolioLinks"></div>
+                            </div>
+
+                            <div class="portfolio-section" id="portfolioSkillsSection" style="display:none;">
+                                <div class="portfolio-section-title">💻 Skills</div>
+                                <div class="portfolio-skills-grid" id="portfolioSkills"></div>
+                            </div>
+
+                            <div class="portfolio-section" id="portfolioProjectsSection" style="display:none;">
+                                <div class="portfolio-section-title">🚀 Projects</div>
+                                <div class="portfolio-projects" id="portfolioProjects"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="action-buttons">
+                    <button class="btn btn-secondary" onclick="copyHTML()">📋 Copy HTML</button>
+                    <button class="btn btn-primary" onclick="downloadFree()">⬇️ Download Free</button>
+                    <button class="btn btn-success" onclick="showProModal()">🔓 Unlock PRO</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Bottom Large Ad (728x90 or responsive) -->
+        <div class="ad-container ad-horizontal" style="position: relative; margin-top: 30px;">
+            <span class="ad-label">Advertisement</span>
+            <ins class="adsbygoogle"
+                 style="display:block"
+                 data-ad-client="ca-pub-XXXXXXXXXX"
+                 data-ad-slot="XXXXXXXXXX"
+                 data-ad-format="horizontal"
+                 data-full-width-responsive="true"></ins>
+            <span style="color: var(--text-secondary);">📢 Your Ad Here (728x90 Bottom Banner)</span>
+        </div>
+    </div>
+
+    <!-- Pro Modal -->
+    <div class="modal" id="proModal">
+        <div class="modal-content">
+            <div class="modal-icon">🚀</div>
+            <h3 class="modal-title">Upgrade to PRO</h3>
+            <p class="modal-text">Get access to premium templates, unlimited downloads, and portfolio hosting!</p>
+            
+            <div class="pricing-box">
+                <div class="price">₹299</div>
+                <div class="price-desc">One-time payment • Lifetime access</div>
+            </div>
+
+            <div class="features-list">
+                <div class="feature-item">
+                    <span class="feature-icon">✓</span>
+                    <span>3 Premium Templates (Dark, Minimal, Creative)</span>
+                </div>
+                <div class="feature-item">
+                    <span class="feature-icon">✓</span>
+                    <span>Resume + Portfolio in one ZIP</span>
+                </div>
+                <div class="feature-item">
+                    <span class="feature-icon">✓</span>
+                    <span>Unlimited Downloads & Updates</span>
+                </div>
+                <div class="feature-item">
+                    <span class="feature-icon">✓</span>
+                    <span>Priority Support</span>
+                </div>
+            </div>
+
+            <div class="modal-buttons">
+                <button class="btn btn-secondary" onclick="closeProModal()">Maybe Later</button>
+                <button class="btn btn-primary" onclick="upgradeToPro()">🔓 Upgrade Now</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Toast Notification -->
+    <div class="toast" id="toast">
+        <span>✓</span>
+        <span id="toastMessage">Success!</span>
+    </div>
+
+    <!-- Google AdSense Script -->
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-XXXXXXXXXX"
+            crossorigin="anonymous"></script>
+    <script>
+        // Initialize AdSense ads after page load
+        window.addEventListener('load', function() {
+            // Push ads to AdSense
+            (adsbygoogle = window.adsbygoogle || []).push({});
+            (adsbygoogle = window.adsbygoogle || []).push({});
+            (adsbygoogle = window.adsbygoogle || []).push({});
+            (adsbygoogle = window.adsbygoogle || []).push({});
+        });
+    </script>
+
+    <script>
+        let skills = [];
+        let projects = [];
+        let education = [];
+        let currentTemplate = 'modern';
+        let currentView = 'resume';
+
+        // Initialize
+        document.addEventListener('DOMContentLoaded', function() {
+            // Add input listeners
+            const inputs = ['fullName', 'title', 'location', 'email', 'phone', 'github', 'linkedin', 'portfolio', 'summary'];
+            inputs.forEach(id => {
+                const element = document.getElementById(id);
+                if (element) {
+                    element.addEventListener('input', updatePreview);
+                }
+            });
+
+            // Add sample data for demo
+            addSampleData();
+        });
+
+        function addSampleData() {
+            document.getElementById('fullName').value = '';
+            document.getElementById('title').value = '';
+            document.getElementById('location').value = '';
+            document.getElementById('email').value = '';
+            document.getElementById('phone').value = '+';
+            document.getElementById('github').value = '';
+            document.getElementById('linkedin').value = '';
+            document.getElementById('summary').value = '';
+
+            skills = [];
+            projects = [
+               
+            ];
+           
+
+            updatePreview();
+        }
+
+        function updatePreview() {
+            const name = document.getElementById('fullName').value || 'Your Name';
+            const title = document.getElementById('title').value || 'Your Title';
+            const location = document.getElementById('location').value;
+            const email = document.getElementById('email').value || 'your@email.com';
+            const phone = document.getElementById('phone').value;
+            const github = document.getElementById('github').value;
+            const linkedin = document.getElementById('linkedin').value;
+            const portfolio = document.getElementById('portfolio').value;
+            const summary = document.getElementById('summary').value;
+
+            // Update Resume Preview
+            document.getElementById('previewName').textContent = name;
+            document.getElementById('previewTitle').textContent = title;
+
+            let contactHTML = `<span>📧 ${email}</span>`;
+            if (location) contactHTML += `<span>📍 ${location}</span>`;
+            if (phone) contactHTML += `<span>📱 ${phone}</span>`;
+            if (github) contactHTML += `<span><a href="${github}" target="_blank" style="color: var(--text-secondary); text-decoration: none;">GitHub</a></span>`;
+            if (linkedin) contactHTML += `<span><a href="${linkedin}" target="_blank" style="color: var(--text-secondary); text-decoration: none;">LinkedIn</a></span>`;
+            document.getElementById('previewContact').innerHTML = contactHTML;
+
+            // Summary
+            if (summary) {
+                document.getElementById('summarySection').style.display = 'block';
+                document.getElementById('previewSummary').textContent = summary;
+            } else {
+                document.getElementById('summarySection').style.display = 'none';
+            }
+
+            // Skills
+            if (skills.length > 0) {
+                document.getElementById('skillsSection').style.display = 'block';
+                document.getElementById('previewSkills').innerHTML = skills.map(skill => 
+                    `<span class="resume-skill">${skill}</span>`
+                ).join('');
+            } else {
+                document.getElementById('skillsSection').style.display = 'none';
+            }
+
+            // Projects
+            if (projects.length > 0) {
+                document.getElementById('projectsSection').style.display = 'block';
+                document.getElementById('previewProjects').innerHTML = projects.map(project => `
+                    <div class="resume-project">
+                        <div class="resume-project-name">${project.name}</div>
+                        <div class="resume-project-desc">${project.description}</div>
+                        ${project.link ? `<a href="${project.link}" target="_blank" class="resume-project-link">${project.link}</a>` : ''}
+                    </div>
+                `).join('');
+            } else {
+                document.getElementById('projectsSection').style.display = 'none';
+            }
+
+            // Education
+            if (education.length > 0) {
+                document.getElementById('educationSection').style.display = 'block';
+                document.getElementById('previewEducation').innerHTML = education.map(edu => `
+                    <div class="resume-education">
+                        <div class="resume-education-degree">${edu.degree}</div>
+                        <div class="resume-education-school">${edu.school} • ${edu.year}</div>
+                    </div>
+                `).join('');
+            } else {
+                document.getElementById('educationSection').style.display = 'none';
+            }
+
+            // Update Portfolio Preview
+            document.getElementById('portfolioName').textContent = name;
+            document.getElementById('portfolioTitle').textContent = title;
+            document.getElementById('portfolioSummary').textContent = summary || 'Your professional summary will appear here';
+
+            let linksHTML = '';
+            if (github) linksHTML += `<a href="${github}" target="_blank" class="portfolio-link">GitHub</a>`;
+            if (linkedin) linksHTML += `<a href="${linkedin}" target="_blank" class="portfolio-link">LinkedIn</a>`;
+            if (portfolio) linksHTML += `<a href="${portfolio}" target="_blank" class="portfolio-link">Portfolio</a>`;
+            if (email) linksHTML += `<a href="mailto:${email}" class="portfolio-link">Contact</a>`;
+            document.getElementById('portfolioLinks').innerHTML = linksHTML;
+
+            // Portfolio Skills
+            if (skills.length > 0) {
+                document.getElementById('portfolioSkillsSection').style.display = 'block';
+                document.getElementById('portfolioSkills').innerHTML = skills.map(skill => 
+                    `<div class="portfolio-skill-card">${skill}</div>`
+                ).join('');
+            } else {
+                document.getElementById('portfolioSkillsSection').style.display = 'none';
+            }
+
+            // Portfolio Projects
+            if (projects.length > 0) {
+                document.getElementById('portfolioProjectsSection').style.display = 'block';
+                document.getElementById('portfolioProjects').innerHTML = projects.map(project => `
+                    <div class="portfolio-project-card">
+                        <div class="portfolio-project-name">${project.name}</div>
+                        <div class="portfolio-project-desc">${project.description}</div>
+                        ${project.link ? `<a href="${project.link}" target="_blank" class="portfolio-link" style="font-size: 13px;">View Project →</a>` : ''}
+                    </div>
+                `).join('');
+            } else {
+                document.getElementById('portfolioProjectsSection').style.display = 'none';
+            }
+        }
+
+        function addSkill() {
+            const input = document.getElementById('skillInput');
+            const skill = input.value.trim();
+            if (skill && !skills.includes(skill)) {
+                skills.push(skill);
+                input.value = '';
+                renderSkills();
+                updatePreview();
+            }
+        }
+
+        function renderSkills() {
+            const container = document.getElementById('skillsContainer');
+            container.innerHTML = skills.map((skill, index) => `
+                <div class="chip">
+                    <span>${skill}</span>
+                    <span class="chip-remove" onclick="removeSkill(${index})">×</span>
+                </div>
+            `).join('');
+        }
+
+        function removeSkill(index) {
+            skills.splice(index, 1);
+            renderSkills();
+            updatePreview();
+        }
+
+        function addProject() {
+            const projectHTML = `
+                <div class="project-item">
+                    <button type="button" class="remove-item" onclick="removeProject(this)">Remove</button>
+                    <div class="form-group">
+                        <label>Project Name</label>
+                        <input type="text" class="project-name" placeholder="E-commerce Website" onchange="updateProjects()">
+                    </div>
+                    <div class="form-group">
+                        <label>Description</label>
+                        <textarea class="project-desc" placeholder="Built a full-stack e-commerce platform..." onchange="updateProjects()"></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label>Link (GitHub/Live)</label>
+                        <input type="url" class="project-link" placeholder="https://github.com/..." onchange="updateProjects()">
+                    </div>
+                </div>
+            `;
+            document.getElementById('projectsContainer').insertAdjacentHTML('beforeend', projectHTML);
+        }
+
+        function removeProject(btn) {
+            btn.parentElement.remove();
+            updateProjects();
+        }
+
+        function updateProjects() {
+            projects = [];
+            document.querySelectorAll('.project-item').forEach(item => {
+                const name = item.querySelector('.project-name').value;
+                const description = item.querySelector('.project-desc').value;
+                const link = item.querySelector('.project-link').value;
+                if (name) {
+                    projects.push({ name, description, link });
+                }
+            });
+            updatePreview();
+        }
+
+        function addEducation() {
+            const eduHTML = `
+                <div class="education-item">
+                    <button type="button" class="remove-item" onclick="removeEducation(this)">Remove</button>
+                    <div class="form-group">
+                        <label>Degree</label>
+                        <input type="text" class="edu-degree" placeholder="Bachelor of Technology" onchange="updateEducation()">
+                    </div>
+                    <div class="form-group">
+                        <label>School/University</label>
+                        <input type="text" class="edu-school" placeholder="Delhi University" onchange="updateEducation()">
+                    </div>
+                    <div class="form-group">
+                        <label>Year</label>
+                        <input type="text" class="edu-year" placeholder="2018 - 2022" onchange="updateEducation()">
+                    </div>
+                </div>
+            `;
+            document.getElementById('educationContainer').insertAdjacentHTML('beforeend', eduHTML);
+        }
+
+        function removeEducation(btn) {
+            btn.parentElement.remove();
+            updateEducation();
+        }
+
+        function updateEducation() {
+            education = [];
+            document.querySelectorAll('.education-item').forEach(item => {
+                const degree = item.querySelector('.edu-degree').value;
+                const school = item.querySelector('.edu-school').value;
+                const year = item.querySelector('.edu-year').value;
+                if (degree) {
+                    education.push({ degree, school, year });
+                }
+            });
+            updatePreview();
+        }
+
+        function switchPreview(view) {
+            currentView = view;
+            document.querySelectorAll('.preview-tab').forEach(tab => tab.classList.remove('active'));
+            event.target.classList.add('active');
+
+            if (view === 'resume') {
+                document.getElementById('resumePreview').style.display = 'block';
+                document.getElementById('portfolioPreview').style.display = 'none';
+            } else {
+                document.getElementById('resumePreview').style.display = 'none';
+                document.getElementById('portfolioPreview').style.display = 'block';
+            }
+        }
+
+        function switchTemplate(template) {
+            currentTemplate = template;
+            document.querySelectorAll('.template-btn').forEach(btn => btn.classList.remove('active'));
+            event.target.classList.add('active');
+        }
+
+        function copyHTML() {
+            const content = currentView === 'resume' 
+                ? document.getElementById('resumePreview').outerHTML 
+                : document.getElementById('portfolioPreview').outerHTML;
+            
+            navigator.clipboard.writeText(content).then(() => {
+                showToast('HTML copied to clipboard!');
+            });
+        }
+
+        function downloadFree() {
+            const name = document.getElementById('fullName').value || 'resume';
+            const fileName = name.toLowerCase().replace(/\s+/g, '-');
+            
+            let htmlContent = '';
+            if (currentView === 'resume') {
+                htmlContent = generateResumeHTML();
+            } else {
+                htmlContent = generatePortfolioHTML();
+            }
+
+            const blob = new Blob([htmlContent], { type: 'text/html' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = `${fileName}-${currentView}.html`;
+            a.click();
+            URL.revokeObjectURL(url);
+
+            showToast(`${currentView === 'resume' ? 'Resume' : 'Portfolio'} downloaded successfully!`);
+        }
+
+        function generateResumeHTML() {
+            const styles = `<style>
+                * { margin: 0; padding: 0; box-sizing: border-box; }
+                body { font-family: Arial, sans-serif; line-height: 1.6; color: #333; max-width: 800px; margin: 40px auto; padding: 40px; }
+                .resume-header { text-align: center; padding-bottom: 20px; border-bottom: 2px solid #2563eb; margin-bottom: 20px; }
+                .resume-name { font-size: 32px; font-weight: 700; margin-bottom: 8px; }
+                .resume-title { font-size: 18px; color: #2563eb; margin-bottom: 12px; }
+                .resume-contact { display: flex; justify-content: center; gap: 16px; flex-wrap: wrap; font-size: 14px; color: #64748b; }
+                .resume-section { margin-bottom: 24px; }
+                .resume-section-title { font-size: 20px; font-weight: 600; color: #2563eb; margin-bottom: 12px; padding-bottom: 8px; border-bottom: 1px solid #e2e8f0; }
+                .resume-skills { display: flex; flex-wrap: wrap; gap: 8px; }
+                .resume-skill { background: #e0e7ff; color: #2563eb; padding: 6px 14px; border-radius: 16px; font-size: 14px; }
+                .resume-project, .resume-education { margin-bottom: 16px; }
+                .resume-project-name, .resume-education-degree { font-size: 16px; font-weight: 600; margin-bottom: 4px; }
+                .resume-project-desc, .resume-education-school { font-size: 14px; color: #64748b; margin-bottom: 4px; }
+                .resume-project-link { font-size: 13px; color: #2563eb; text-decoration: none; }
+                @media print { body { margin: 0; padding: 20px; } }
+            </style>`;
+
+            return `<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>${document.getElementById('fullName').value || 'Resume'}</title>${styles}</head><body>${document.getElementById('resumePreview').innerHTML}</body></html>`;
+        }
+
+        function generatePortfolioHTML() {
+            const styles = `<style>
+                * { margin: 0; padding: 0; box-sizing: border-box; }
+                body { font-family: Arial, sans-serif; line-height: 1.6; }
+                .portfolio-preview { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; min-height: 100vh; padding: 40px; }
+                .portfolio-hero { text-align: center; padding: 60px 20px; }
+                .portfolio-name { font-size: 48px; font-weight: 700; margin-bottom: 12px; }
+                .portfolio-title { font-size: 24px; opacity: 0.9; margin-bottom: 24px; }
+                .portfolio-summary { max-width: 600px; margin: 0 auto 32px; font-size: 16px; line-height: 1.8; opacity: 0.95; }
+                .portfolio-links { display: flex; justify-content: center; gap: 16px; flex-wrap: wrap; }
+                .portfolio-link { background: rgba(255, 255, 255, 0.2); padding: 10px 20px; border-radius: 8px; color: white; text-decoration: none; font-weight: 500; }
+                .portfolio-section { background: rgba(255, 255, 255, 0.1); border-radius: 12px; padding: 30px; margin-bottom: 24px; }
+                .portfolio-section-title { font-size: 28px; font-weight: 600; margin-bottom: 20px; }
+                .portfolio-projects { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px; }
+                .portfolio-project-card { background: rgba(255, 255, 255, 0.15); padding: 20px; border-radius: 8px; }
+                .portfolio-project-name { font-size: 18px; font-weight: 600; margin-bottom: 8px; }
+                .portfolio-project-desc { font-size: 14px; opacity: 0.9; margin-bottom: 12px; }
+                .portfolio-skills-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(120px, 1fr)); gap: 12px; }
+                .portfolio-skill-card { background: rgba(255, 255, 255, 0.15); padding: 12px; border-radius: 8px; text-align: center; font-weight: 500; }
+            </style>`;
+
+            return `<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>${document.getElementById('fullName').value || 'Portfolio'}</title>${styles}</head><body>${document.getElementById('portfolioPreview').outerHTML}</body></html>`;
+        }
+
+        function showProModal() {
+            document.getElementById('proModal').classList.add('active');
+        }
+
+        function closeProModal() {
+            document.getElementById('proModal').classList.remove('active');
+        }
+
+        function upgradeToPro() {
+            showToast('Payment integration coming soon! For now, contact: your-email@example.com');
+            // In production: integrate Razorpay here
+            // window.location.href = '/checkout';
+        }
+
+        function showToast(message) {
+            const toast = document.getElementById('toast');
+            document.getElementById('toastMessage').textContent = message;
+            toast.classList.add('active');
+            setTimeout(() => {
+                toast.classList.remove('active');
+            }, 3000);
+        }
+
+        // Allow Enter key to add skills
+        document.getElementById('skillInput').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                e.preventDefault();
+                addSkill();
+            }
+        });
+    </script>
+</body>
+</html>
+
