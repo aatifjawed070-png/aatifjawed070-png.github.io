@@ -3,503 +3,437 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Code Learning Hub – full catalog</title>
-  <!-- Google Fonts for cleaner typography (optional) -->
+  <title>CodeSphere – dynamic course hub</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700&display=swap" rel="stylesheet">
   <style>
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
     body {
-      font-family: 'Inter', system-ui, -apple-system, sans-serif;
-      background: #f8fafc;
-      color: #0b1a2f;
+      font-family: 'Inter', system-ui, sans-serif;
+      background: #f4f8fe;
+      color: #0b253b;
       line-height: 1.5;
     }
-    /* layout containers */
-    .cn-header, .cn-hero, .cn-courses, footer {
-      max-width: 1280px;
+    .app-wrapper {
+      max-width: 1400px;
       margin: 0 auto;
       padding: 0 32px;
     }
-    /* header */
-    .cn-header {
+    /* header & tab navigation */
+    .main-header {
       display: flex;
       align-items: center;
       justify-content: space-between;
-      padding-top: 20px;
-      padding-bottom: 20px;
       flex-wrap: wrap;
+      padding: 24px 0 16px;
     }
-    .cn-logo {
-      font-weight: 700;
-      font-size: 1.8rem;
-      letter-spacing: -0.02em;
-      background: linear-gradient(145deg, #1e3c72, #2b5876);
+    .logo {
+      font-weight: 800;
+      font-size: 2rem;
+      background: linear-gradient(145deg, #0e2f4b, #1d4f7a);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
     }
-    .cn-nav {
+    .auth-tabs {
       display: flex;
-      gap: 2rem;
-      font-weight: 500;
+      gap: 12px;
+      background: white;
+      padding: 6px;
+      border-radius: 60px;
+      box-shadow: 0 8px 18px -8px rgba(0,45,80,0.15);
+      border: 1px solid #dae6f2;
     }
-    .cn-nav a {
-      text-decoration: none;
-      color: #1e2b3a;
-    }
-    .cn-nav a:hover {
-      color: #0b5e80;
-    }
-    .cn-login-btn {
-      background: none;
-      border: 1.5px solid #1e3c72;
-      padding: 8px 24px;
+    .auth-tab-btn {
+      background: transparent;
+      border: none;
+      padding: 10px 32px;
       border-radius: 40px;
       font-weight: 600;
-      color: #1e3c72;
+      font-size: 1rem;
+      cursor: pointer;
+      transition: 0.2s;
+      color: #2d4b6e;
+    }
+    .auth-tab-btn.active {
+      background: #1d3e6b;
+      color: white;
+      box-shadow: 0 4px 10px rgba(0,70,120,0.3);
+    }
+    .login-btn-header {
+      background: none;
+      border: 1.5px solid #1d3e6b;
+      padding: 10px 28px;
+      border-radius: 40px;
+      font-weight: 600;
+      color: #1d3e6b;
       cursor: pointer;
       transition: 0.2s;
     }
-    .cn-login-btn:hover {
-      background: #1e3c72;
+    .login-btn-header:hover {
+      background: #1d3e6b;
       color: white;
     }
-    /* hero */
-    .cn-hero {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 40px;
-      margin-top: 20px;
-      margin-bottom: 60px;
-    }
-    .cn-hero-left {
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-    }
-    .cn-eyebrow {
-      text-transform: uppercase;
-      letter-spacing: 1.5px;
-      color: #bf4e2b;
-      font-weight: 600;
-      font-size: 0.9rem;
-      margin-bottom: 12px;
-    }
-    .cn-hero-left h1 {
-      font-size: 2.8rem;
-      font-weight: 700;
-      line-height: 1.2;
-      margin-bottom: 32px;
-      color: #0a1c2f;
-    }
-    .cn-metrics {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 24px 32px;
-    }
-    .metric-card {
-      display: flex;
-      flex-direction: column;
-    }
-    .metric-title {
-      font-weight: 700;
-      font-size: 1.3rem;
-      color: #0f3b5e;
-    }
-    .metric-sub {
-      color: #3a4f64;
-      font-size: 0.9rem;
-    }
-    /* right form */
-    .cn-hero-right {
+    /* dynamic panel: login / register */
+    .auth-panel {
       background: white;
-      padding: 32px;
       border-radius: 28px;
-      box-shadow: 0 20px 30px -10px rgba(0,30,60,0.15);
-      border: 1px solid #e9edf2;
+      box-shadow: 0 18px 30px -12px #0b2f4e33;
+      padding: 28px 30px;
+      margin: 16px 0 32px;
+      border: 1px solid #deecf7;
+      transition: all 0.2s;
     }
-    .cn-hero-right h2 {
-      font-size: 1.8rem;
-      font-weight: 600;
-      margin-bottom: 24px;
-    }
-    .field-group {
-      margin-bottom: 20px;
-    }
-    .field-group label {
-      font-weight: 500;
-      display: block;
-      margin-bottom: 6px;
-      color: #1e3b4f;
-    }
-    .field-group input[type="radio"] + label {
-      display: inline-block;
-      margin-right: 16px;
-      font-weight: 400;
-    }
-    .field-group input[type="text"],
-    .field-group input[type="tel"],
-    .field-group input[type="email"],
-    .field-group select {
-      width: 100%;
-      padding: 12px 16px;
-      border: 1.5px solid #dbe1e9;
-      border-radius: 16px;
-      font-size: 1rem;
-      background: #fcfdff;
-    }
-    .field-group select {
-      appearance: none;
-      background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="%23333" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>');
-      background-repeat: no-repeat;
-      background-position: right 16px center;
-    }
-    .cn-primary-btn {
-      background: #1f3e6b;
-      color: white;
-      border: none;
-      padding: 16px 28px;
-      border-radius: 40px;
-      font-weight: 700;
-      font-size: 1.1rem;
-      width: 100%;
-      cursor: pointer;
-      transition: background 0.2s;
-    }
-    .cn-primary-btn:hover {
-      background: #0f2a4a;
-    }
-    /* courses section (left sidebar + catalog + right bootcamp) */
-    .cn-courses {
-      display: grid;
-      grid-template-columns: 220px 1fr 260px;
-      gap: 32px;
-      margin-bottom: 60px;
-    }
-    .cn-courses-sidebar {
-      background: white;
-      border-radius: 24px;
-      padding: 24px 16px;
-      border: 1px solid #eef2f6;
-      height: fit-content;
-    }
-    .cn-courses-sidebar h3 {
-      margin-bottom: 20px;
-      font-size: 1.3rem;
-      font-weight: 600;
-      color: #002856;
-    }
-    .cn-courses-sidebar button {
-      display: block;
-      width: 100%;
-      text-align: left;
-      background: none;
-      border: none;
-      padding: 12px 18px;
-      border-radius: 40px;
-      margin-bottom: 6px;
-      font-weight: 500;
-      color: #2d4059;
-      cursor: pointer;
-      transition: 0.1s;
-      font-size: 1rem;
-    }
-    .cn-courses-sidebar button.active {
-      background: #e3ecf9;
-      color: #004e8c;
-      font-weight: 600;
-      border-left: 4px solid #004e8c;
-    }
-    .cn-courses-sidebar button:hover:not(.active) {
-      background: #f0f5fd;
-    }
-    /* course list grid */
-    .cn-courses-list {
+    .auth-form {
       display: flex;
       flex-direction: column;
       gap: 20px;
     }
-    .course-card {
-      background: white;
+    .auth-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 20px;
+    }
+    .auth-field {
+      flex: 1 1 240px;
+    }
+    .auth-field label {
+      font-weight: 600;
+      display: block;
+      margin-bottom: 6px;
+      color: #1b3e5c;
+    }
+    .auth-field input, .auth-field select {
+      width: 100%;
+      padding: 14px 18px;
+      border: 1.5px solid #cfddee;
       border-radius: 24px;
-      padding: 24px;
-      border: 1px solid #eef2f6;
-      box-shadow: 0 5px 12px rgba(0,0,0,0.02);
+      font-size: 1rem;
+      background: #f9fcff;
+    }
+    .auth-btn {
+      background: #1f3e6b;
+      color: white;
+      border: none;
+      padding: 16px 30px;
+      border-radius: 40px;
+      font-weight: 700;
+      font-size: 1.1rem;
+      cursor: pointer;
+      transition: 0.2s;
+      width: fit-content;
+      min-width: 200px;
+    }
+    .auth-btn:hover { background: #0e2b48; }
+    .toggle-link {
+      font-size: 0.95rem;
+      margin-top: 8px;
+    }
+    .toggle-link span {
+      color: #1e5d9e;
+      font-weight: 600;
+      cursor: pointer;
+      text-decoration: underline;
+    }
+    .hidden { display: none !important; }
+
+    /* main catalog section with dynamic grid and filters */
+    .catalog-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      margin: 40px 0 24px;
+    }
+    .filter-tabs {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+    .filter-btn {
+      background: white;
+      border: 1px solid #bcd2e9;
+      padding: 10px 26px;
+      border-radius: 60px;
+      font-weight: 600;
+      color: #1d4163;
+      cursor: pointer;
       transition: all 0.15s;
     }
-    .course-card:hover {
-      border-color: #bcd0e5;
-      box-shadow: 0 12px 20px -12px rgba(0,50,100,0.2);
+    .filter-btn.active-filter {
+      background: #1f3e6b;
+      border-color: #1f3e6b;
+      color: white;
     }
-    .course-card h4 {
-      font-size: 1.3rem;
+    .course-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(290px, 1fr));
+      gap: 28px;
+      margin: 32px 0 50px;
+    }
+    .course-card {
+      background: white;
+      border-radius: 26px;
+      padding: 28px 22px;
+      border: 1px solid #e5f0fa;
+      box-shadow: 0 12px 20px -16px #1f3a5e1a;
+      transition: transform 0.15s, border-color 0.2s;
+    }
+    .course-card:hover {
+      border-color: #9abde0;
+      transform: translateY(-4px);
+    }
+    .course-card h3 {
+      font-size: 1.5rem;
       font-weight: 700;
       margin-bottom: 8px;
-      color: #0f2b48;
+      color: #13324b;
     }
-    .course-card p {
-      color: #3f5569;
+    .course-desc {
+      color: #2b4a6b;
       margin-bottom: 16px;
+      font-weight: 500;
+    }
+    .meta-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px 16px;
+      font-size: 0.95rem;
+      color: #3f5e7c;
+      margin: 16px 0 12px;
     }
     .badge {
-      background: #dbf0e6;
-      color: #0d5e3c;
+      background: #e3f0f5;
+      color: #0a4c6e;
       font-weight: 600;
-      padding: 4px 16px;
-      border-radius: 30px;
+      padding: 5px 16px;
+      border-radius: 50px;
       font-size: 0.8rem;
       display: inline-block;
     }
-    .cn-bootcamp {
-      background: #1d2b3f;
-      color: white;
-      border-radius: 24px;
-      padding: 32px 24px;
-      border: 1px solid #263c57;
-      height: fit-content;
-      background-image: radial-gradient(circle at 100% 0, #335577, #102231);
-    }
-    .cn-bootcamp h3 {
-      font-size: 1.5rem;
+    .register-micro {
+      margin-top: 18px;
+      background: #ecf5fd;
+      border-radius: 60px;
+      padding: 8px 18px;
+      font-size: 0.9rem;
       font-weight: 600;
-      margin-bottom: 12px;
-      color: #f6d9b8;
-    }
-    .cn-bootcamp p {
-      font-size: 1.1rem;
-      font-weight: 500;
-      line-height: 1.4;
-      margin-bottom: 28px;
-    }
-    /* mock cta inside bootcamp */
-    .bootcamp-cta {
-      background: #eac9a3;
-      color: #1e2f3f;
-      border: none;
-      padding: 10px 16px;
-      border-radius: 36px;
-      font-weight: 700;
-      width: 100%;
+      color: #0c3b60;
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
       cursor: pointer;
     }
-    /* new footer */
+    /* footer */
     footer {
       display: flex;
       justify-content: space-between;
-      align-items: center;
-      border-top: 1px solid #d9e2ec;
-      padding-top: 32px;
-      padding-bottom: 32px;
-      margin-top: 40px;
-      color: #3e5b77;
+      border-top: 1px solid #c7d9ec;
+      padding: 32px 0;
+      margin-top: 20px;
+      color: #2e5475;
       flex-wrap: wrap;
     }
     .footer-links a {
-      color: #1d3b5c;
-      text-decoration: none;
       margin-left: 28px;
+      color: #1d4468;
+      text-decoration: none;
       font-weight: 500;
     }
-    /* mobile adjustments */
-    @media (max-width: 1000px) {
-      .cn-hero { grid-template-columns: 1fr; }
-      .cn-courses { grid-template-columns: 1fr; }
-      .cn-courses-sidebar { display: flex; flex-wrap: wrap; gap: 8px; }
-      .cn-courses-sidebar button { width: auto; }
-    }
-    @media (max-width: 600px) {
-      .cn-header { flex-direction: column; gap: 16px; }
-      .cn-nav { flex-wrap: wrap; justify-content: center; }
-      footer { flex-direction: column; gap: 12px; }
-      .footer-links a { margin: 0 12px; }
-    }
-    /* extra micro */
-    .course-highlight {
-      margin-top: 8px;
-      font-size: 0.9rem;
-      color: #567594;
-    }
-    .cn-hero-right form {
-      margin-top: 10px;
+    @media (max-width: 700px) {
+      .auth-row { flex-direction: column; }
     }
   </style>
 </head>
 <body>
-  <!-- Top bar / navbar (unchanged style but kept exactly as requested) -->
-  <header class="cn-header">
-    <div class="cn-logo">CodeLearn</div>
-    <nav class="cn-nav">
-      <a href="#courses">Courses</a>
-      <a href="#for-working">For Working Professionals</a>
-      <a href="#for-students">For College Students</a>
-    </nav>
-    <a href="login.html">
-  <button class="cn-login-btn">Login</button>
-</a>
+<div class="app-wrapper">
+  <!-- header with tab toggles (login / register) -->
+  <header class="main-header">
+    <span class="logo">⌘ CodeSphere</span>
+    <div style="display: flex; gap: 25px; align-items: center;">
+      <div class="auth-tabs" id="authTabs">
+        <button class="auth-tab-btn active" id="tabLoginBtn">Login</button>
+        <button class="auth-tab-btn" id="tabRegisterBtn">Register</button>
+      </div>
+      <button class="login-btn-header" id="headerQuickLogin">🔑 Demo</button>
+    </div>
   </header>
 
-  <!-- Hero section: left text, right form (your original layout) -->
-  <main class="cn-hero">
-    <!-- Left side -->
-    <section class="cn-hero-left">
-      <p class="cn-eyebrow">Restricted by opportunities?</p>
-      <h1>Get the tech career you deserve. Faster.</h1>
-      <div class="cn-metrics">
-        <div class="metric-card">
-          <span class="metric-title">128% average hike</span>
-          <span class="metric-sub">via our placement cell</span>
+  <!-- dynamic auth panel (login/register toggle) -->
+  <div class="auth-panel" id="authPanel">
+    <!-- login form (visible by default) -->
+    <div id="loginFormContainer">
+      <div class="auth-form">
+        <div class="auth-row">
+          <div class="auth-field">
+            <label>Email</label>
+            <input type="email" id="loginEmail" placeholder="hello@domain.com" value="demo@code.com">
+          </div>
+          <div class="auth-field">
+            <label>Password</label>
+            <input type="password" id="loginPassword" placeholder="••••••••" value="secret123">
+          </div>
         </div>
-        <div class="metric-card">
-          <span class="metric-title">1.5 Lac+ learners</span>
-          <span class="metric-sub">cracked top tech companies</span>
-        </div>
-        <div class="metric-card">
-          <span class="metric-title">1,400+ alumni</span>
-          <span class="metric-sub">in MAANG & unicorn startups</span>
-        </div>
+        <button class="auth-btn" id="loginActionBtn">Log in to dashboard</button>
+        <div class="toggle-link">Not a member? <span id="switchToRegister">Register now →</span></div>
       </div>
-    </section>
-
-    <!-- Right side form (unchanged, but now with slight style enhancements) -->
-    <section class="cn-hero-right">
-      <h2>Let's find the right course for you</h2>
-      <form id="leadForm">
-        <div class="field-group">
-          <label>Experience</label>
-          <label><input type="radio" name="exp" value="working-tech"> Working Professional - Technical</label>
-          <label><input type="radio" name="exp" value="working-nontech"> Working Professional - Non Technical</label>
-          <label><input type="radio" name="exp" value="student-final"> College Student - Final Year</label>
-          <label><input type="radio" name="exp" value="student-pre"> College Student - 1st to Pre-final</label>
-          <label><input type="radio" name="exp" value="other"> Others</label>
-        </div>
-
-        <div class="field-group">
-          <label for="interest">Select topic of interest</label>
-          <select id="interest" name="interest">
-            <option value="">Select your options/choices</option>
-            <option value="web">Web Development</option>
-            <option value="ds">Data Structures & Algorithms</option>
-            <option value="python">Python</option>
-            <option value="ai">AI / ML</option>
-          </select>
-        </div>
-
-        <div class="field-group">
-          <label for="name">Name</label>
-          <input id="name" name="name" type="text" placeholder="Enter name">
-        </div>
-
-        <div class="field-group">
-          <label for="phone">Phone Number</label>
-          <input id="phone" name="phone" type="tel" placeholder="Enter phone number">
-        </div>
-
-        <div class="field-group">
-          <label for="email">Email</label>
-          <input id="email" name="email" type="email" placeholder="Enter email">
-        </div>
-
-        <button type="submit" class="cn-primary-btn">Find your course</button>
-      </form>
-    </section>
-  </main>
-
-  <!-- Course list section – expanded with many cards, replicating a full catalog -->
-  <section id="courses" class="cn-courses">
-    <div class="cn-courses-sidebar">
-      <h3>Domain</h3>
-      <button class="active">Data Analytics</button>
-      <button>Generative AI</button>
-      <button>Software Development</button>
-      <button>Data Science</button>
-      <!-- added more categories to show richness -->
-      <button>Cloud & DevOps</button>
-      <button>Cybersecurity</button>
     </div>
-
-    <div class="cn-courses-list">
-      <!-- first card – original example card now with more detail -->
-      <article class="course-card">
-        <h4>PG Certification in Web Development</h4>
-        <p>Job‑oriented program with projects and interview prep. Includes MERN & backend.</p>
-        <span class="badge">Enrollment open</span>
-        <div class="course-highlight">⏱️ 6 months · 🎯 4 case studies</div>
-      </article>
-      <!-- extra cards added to make it look like a full hub -->
-      <article class="course-card">
-        <h4>Executive Program in Data Science</h4>
-        <p>Master Python, SQL, Tableau and Machine Learning. Industry capstone.</p>
-        <span class="badge">New batch starting</span>
-        <div class="course-highlight">📊 1:1 mentorship · 15+ projects</div>
-      </article>
-      <article class="course-card">
-        <h4>Gen AI & LLM Engineering</h4>
-        <p>Build real-world LLM apps, LangChain, RAG, and deployment.</p>
-        <span class="badge">Early bird</span>
-        <div class="course-highlight">🤖 8 weeks · live sessions</div>
-      </article>
-      <article class="course-card">
-        <h4>Data Analytics Bootcamp (PowerBI, SQL, Excel)</h4>
-        <p>For working professionals & students. Placement assistance.</p>
-        <span class="badge">Enrollment open</span>
-        <div class="course-highlight">📈 128% avg hike reported</div>
-      </article>
-      <article class="course-card">
-        <h4>Advanced DSA & System Design</h4>
-        <p>Crack MAANG interviews. 400+ problems, live doubt support.</p>
-        <span class="badge">Cohort starting</span>
-        <div class="course-highlight">🧩 4 months · 70+ hours</div>
-      </article>
+    <!-- register form (hidden initially) -->
+    <div id="registerFormContainer" class="hidden">
+      <div class="auth-form">
+        <div class="auth-row">
+          <div class="auth-field"><label>Full name</label><input type="text" id="regName" placeholder="Alex Chen"></div>
+          <div class="auth-field"><label>Email</label><input type="email" id="regEmail" placeholder="alex@example.com"></div>
+        </div>
+        <div class="auth-row">
+          <div class="auth-field"><label>Phone</label><input type="tel" id="regPhone" placeholder="+91 98765 43210"></div>
+          <div class="auth-field"><label>Interest</label>
+            <select id="regInterest"><option>Web dev</option><option>Data science</option><option>AI/ML</option><option>DSA</option></select>
+          </div>
+        </div>
+        <button class="auth-btn" id="registerActionBtn">Create account →</button>
+        <div class="toggle-link">Already have an account? <span id="switchToLogin">Login</span></div>
+      </div>
     </div>
+  </div>
 
-    <!-- right bootcamp aside (now with extra content) -->
-    <aside class="cn-bootcamp">
-      <h3>🔥 Job bootcamp</h3>
-      <p>Full‑stack Web Development Job Bootcamp<br> <span style="opacity:0.8; font-size:0.9rem;">with 3 real-world clients</span></p>
-      <button class="bootcamp-cta">Apply now →</button>
-      <hr style="margin: 20px 0; border-color: #4d688b;">
-      <p style="font-size:0.9rem;">🚀 Next cohort: May 12<br>💰 pay after placement</p>
-    </aside>
-  </section>
+  <!-- catalog filter bar (dynamic active filter) -->
+  <div class="catalog-header">
+    <h2 style="font-size: 2rem; font-weight: 700; color: #103656;">📘 full course catalog</h2>
+    <div class="filter-tabs" id="filterContainer">
+      <button class="filter-btn active-filter" data-filter="all">All</button>
+      <button class="filter-btn" data-filter="web">Web dev</button>
+      <button class="filter-btn" data-filter="data">Data/AI</button>
+      <button class="filter-btn" data-filter="dsa">DSA</button>
+      <button class="filter-btn" data-filter="cloud">Cloud/DevOps</button>
+    </div>
+  </div>
 
-  <!-- Footer section (brand new, adds completeness) -->
+  <!-- dynamic course grid injected via JS -->
+  <div class="course-grid" id="courseGrid"></div>
+
+  <!-- footer -->
   <footer>
-    <div>© 2025 CodeLearn Hub — transform your career</div>
-    <div class="footer-links">
-      <a href="#">About</a>
-      <a href="#">Careers</a>
-      <a href="#">Contact</a>
-      <a href="#">Privacy</a>
-    </div>
+    <div>© 2025 CodeSphere – learn code, build future</div>
+    <div class="footer-links"><a href="#">About</a><a href="#">Careers</a><a href="#">Privacy</a></div>
   </footer>
+</div>
 
-  <!-- script (lightweight: just intercept submit to show demo message) -->
-  <script>
-    (function() {
-      const form = document.getElementById('leadForm');
-      if (form) {
-        form.addEventListener('submit', function(e) {
-          e.preventDefault();
-          alert('✨ Thank you! (Demo) Our team will reach out with course recommendations.');
-        });
-      }
-      // simple active button toggle (just for demonstration, optional)
-      const sidebarButtons = document.querySelectorAll('.cn-courses-sidebar button');
-      sidebarButtons.forEach(btn => {
-        btn.addEventListener('click', function() {
-          sidebarButtons.forEach(b => b.classList.remove('active'));
-          this.classList.add('active');
+<script>
+  (function() {
+    // ---------- MOCK COURSE DATABASE (dynamic) ----------
+    const courseCatalog = [
+      { id: 1, title: 'Full‑stack web dev', desc: 'MERN, Next.js, real projects', category: 'web', duration: '6 mo', placement: '128% hike', badge: 'cohort open' },
+      { id: 2, title: 'Data science pro', desc: 'Python, SQL, Tableau, ML', category: 'data', duration: '7 mo', placement: '200+ partners', badge: 'early bird' },
+      { id: 3, title: 'Gen AI & LLM', desc: 'LangChain, RAG, OpenAI', category: 'data', duration: '4 mo', placement: 'industry capstone', badge: 'new' },
+      { id: 4, title: 'Advanced DSA', desc: '400+ problems, system design', category: 'dsa', duration: '5 mo', placement: 'MAANG prep', badge: 'interview focus' },
+      { id: 5, title: 'DevOps bootcamp', desc: 'Docker, k8s, CI/CD, AWS', category: 'cloud', duration: '4 mo', placement: 'devops roles', badge: 'limited seats' },
+      { id: 6, title: 'Data analytics', desc: 'Power BI, Excel, SQL', category: 'data', duration: '3 mo', placement: 'analyst track', badge: 'enrollment' },
+      { id: 7, title: 'Frontend architect', desc: 'React, TS, performance', category: 'web', duration: '4 mo', placement: 'UI specialist', badge: 'flexible' },
+      { id: 8, title: 'Cyber security', desc: 'Network, ethical hacking', category: 'cloud', duration: '6 mo', placement: 'blue team', badge: 'advanced' },
+      { id: 9, title: 'Python for everyone', desc: 'Basics to automation', category: 'dsa', duration: '2 mo', placement: 'fundamentals', badge: 'beginner' }
+    ];
+
+    const courseGrid = document.getElementById('courseGrid');
+    const filterBtns = document.querySelectorAll('.filter-btn');
+    let activeFilter = 'all';
+
+    // render courses based on filter
+    function renderCourses(filter = 'all') {
+      const filtered = filter === 'all' ? courseCatalog : courseCatalog.filter(c => c.category === filter);
+      courseGrid.innerHTML = filtered.map(c => `
+        <article class="course-card">
+          <h3>${c.title}</h3>
+          <div class="course-desc">${c.desc}</div>
+          <div class="meta-row"><span>⏱️ ${c.duration}</span><span>📈 ${c.placement}</span></div>
+          <span class="badge">${c.badge}</span>
+          <div class="register-micro" data-course="${c.title}">📌 quick register →</div>
+        </article>
+      `).join('');
+
+      // attach event to "quick register" micro buttons (show register tab)
+      document.querySelectorAll('.register-micro').forEach(el => {
+        el.addEventListener('click', (e) => {
+          e.stopPropagation();
+          // switch to register tab and prefill interest if possible
+          showRegisterTab(true);
+          const courseName = el.dataset.course || '';
+          const regInterestField = document.getElementById('regInterest');
+          if (regInterestField) {
+            // crude mapping: just set any value as example
+            regInterestField.value = courseName.includes('web') ? 'Web dev' : 
+                                     courseName.includes('data')||courseName.includes('Data')||courseName.includes('AI') ? 'Data science' : 'DSA';
+          }
+          alert(`✨ Pre-filled registration for "${courseName}" – demo`);
         });
       });
-    })();
-  </script>
-  <!-- original script src kept but not needed, but keep for structure -->
-  <script src="script.js"></script>
+    }
+
+    // filter event listeners
+    filterBtns.forEach(btn => {
+      btn.addEventListener('click', () => {
+        filterBtns.forEach(b => b.classList.remove('active-filter'));
+        btn.classList.add('active-filter');
+        activeFilter = btn.dataset.filter;
+        renderCourses(activeFilter);
+      });
+    });
+
+    // ---------- TAB SYSTEM: LOGIN / REGISTER ----------
+    const tabLogin = document.getElementById('tabLoginBtn');
+    const tabRegister = document.getElementById('tabRegisterBtn');
+    const loginContainer = document.getElementById('loginFormContainer');
+    const registerContainer = document.getElementById('registerFormContainer');
+    const switchToRegister = document.getElementById('switchToRegister');
+    const switchToLogin = document.getElementById('switchToLogin');
+
+    function setActiveTab(tab) {
+      tabLogin.classList.toggle('active', tab === 'login');
+      tabRegister.classList.toggle('active', tab === 'register');
+      loginContainer.classList.toggle('hidden', tab !== 'login');
+      registerContainer.classList.toggle('hidden', tab !== 'register');
+    }
+
+    tabLogin.addEventListener('click', () => setActiveTab('login'));
+    tabRegister.addEventListener('click', () => setActiveTab('register'));
+    if (switchToRegister) switchToRegister.addEventListener('click', () => setActiveTab('register'));
+    if (switchToLogin) switchToLogin.addEventListener('click', () => setActiveTab('login'));
+
+    // quick demo register function from header demo
+    document.getElementById('headerQuickLogin').addEventListener('click', ()=>{
+      alert('⚡ quick demo: you are now viewed as “aspiring dev”. All catalog active.');
+    });
+
+    // login action (demo)
+    document.getElementById('loginActionBtn').addEventListener('click', (e) => {
+      e.preventDefault();
+      const email = document.getElementById('loginEmail').value;
+      alert(`✅ demo login welcome ${email || 'guest'}! (no validation)`);
+    });
+
+    // register action (demo)
+    document.getElementById('registerActionBtn').addEventListener('click', (e) => {
+      e.preventDefault();
+      const name = document.getElementById('regName').value || 'learner';
+      alert(`🎉 Thanks ${name}, you're registered (demo). Explore courses!`);
+      setActiveTab('login'); // switch to login after register demo
+    });
+
+    // external function to show register tab (used by quick register)
+    window.showRegisterTab = function(triggerAlert = false) {
+      setActiveTab('register');
+    };
+
+    // initially render
+    renderCourses('all');
+
+    // smooth extra: login/register toggle also from "not a member" etc works
+
+    // add smooth logout feeling? just for demo we keep
+
+    // adding tiny dynamic for filter consistency
+  })();
+</script>
+<!-- no extra script needed, all built in -->
 </body>
 </html>
-
