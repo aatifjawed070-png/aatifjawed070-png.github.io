@@ -1,439 +1,331 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>CodeSphere – dynamic course hub</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700&display=swap" rel="stylesheet">
-  <style>
-    * { margin: 0; padding: 0; box-sizing: border-box; }
-    body {
-      font-family: 'Inter', system-ui, sans-serif;
-      background: #f4f8fe;
-      color: #0b253b;
-      line-height: 1.5;
-    }
-    .app-wrapper {
-      max-width: 1400px;
-      margin: 0 auto;
-      padding: 0 32px;
-    }
-    /* header & tab navigation */
-    .main-header {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      flex-wrap: wrap;
-      padding: 24px 0 16px;
-    }
-    .logo {
-      font-weight: 800;
-      font-size: 2rem;
-      background: linear-gradient(145deg, #0e2f4b, #1d4f7a);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-    }
-    .auth-tabs {
-      display: flex;
-      gap: 12px;
-      background: white;
-      padding: 6px;
-      border-radius: 60px;
-      box-shadow: 0 8px 18px -8px rgba(0,45,80,0.15);
-      border: 1px solid #dae6f2;
-    }
-    .auth-tab-btn {
-      background: transparent;
-      border: none;
-      padding: 10px 32px;
-      border-radius: 40px;
-      font-weight: 600;
-      font-size: 1rem;
-      cursor: pointer;
-      transition: 0.2s;
-      color: #2d4b6e;
-    }
-    .auth-tab-btn.active {
-      background: #1d3e6b;
-      color: white;
-      box-shadow: 0 4px 10px rgba(0,70,120,0.3);
-    }
-    .login-btn-header {
-      background: none;
-      border: 1.5px solid #1d3e6b;
-      padding: 10px 28px;
-      border-radius: 40px;
-      font-weight: 600;
-      color: #1d3e6b;
-      cursor: pointer;
-      transition: 0.2s;
-    }
-    .login-btn-header:hover {
-      background: #1d3e6b;
-      color: white;
-    }
-    /* dynamic panel: login / register */
-    .auth-panel {
-      background: white;
-      border-radius: 28px;
-      box-shadow: 0 18px 30px -12px #0b2f4e33;
-      padding: 28px 30px;
-      margin: 16px 0 32px;
-      border: 1px solid #deecf7;
-      transition: all 0.2s;
-    }
-    .auth-form {
-      display: flex;
-      flex-direction: column;
-      gap: 20px;
-    }
-    .auth-row {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 20px;
-    }
-    .auth-field {
-      flex: 1 1 240px;
-    }
-    .auth-field label {
-      font-weight: 600;
-      display: block;
-      margin-bottom: 6px;
-      color: #1b3e5c;
-    }
-    .auth-field input, .auth-field select {
-      width: 100%;
-      padding: 14px 18px;
-      border: 1.5px solid #cfddee;
-      border-radius: 24px;
-      font-size: 1rem;
-      background: #f9fcff;
-    }
-    .auth-btn {
-      background: #1f3e6b;
-      color: white;
-      border: none;
-      padding: 16px 30px;
-      border-radius: 40px;
-      font-weight: 700;
-      font-size: 1.1rem;
-      cursor: pointer;
-      transition: 0.2s;
-      width: fit-content;
-      min-width: 200px;
-    }
-    .auth-btn:hover { background: #0e2b48; }
-    .toggle-link {
-      font-size: 0.95rem;
-      margin-top: 8px;
-    }
-    .toggle-link span {
-      color: #1e5d9e;
-      font-weight: 600;
-      cursor: pointer;
-      text-decoration: underline;
-    }
-    .hidden { display: none !important; }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CodeSphere – Professional Course Hub</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 
-    /* main catalog section with dynamic grid and filters */
-    .catalog-header {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      flex-wrap: wrap;
-      margin: 40px 0 24px;
-    }
-    .filter-tabs {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 12px;
-    }
-    .filter-btn {
-      background: white;
-      border: 1px solid #bcd2e9;
-      padding: 10px 26px;
-      border-radius: 60px;
-      font-weight: 600;
-      color: #1d4163;
-      cursor: pointer;
-      transition: all 0.15s;
-    }
-    .filter-btn.active-filter {
-      background: #1f3e6b;
-      border-color: #1f3e6b;
-      color: white;
-    }
-    .course-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(290px, 1fr));
-      gap: 28px;
-      margin: 32px 0 50px;
-    }
-    .course-card {
-      background: white;
-      border-radius: 26px;
-      padding: 28px 22px;
-      border: 1px solid #e5f0fa;
-      box-shadow: 0 12px 20px -16px #1f3a5e1a;
-      transition: transform 0.15s, border-color 0.2s;
-    }
-    .course-card:hover {
-      border-color: #9abde0;
-      transform: translateY(-4px);
-    }
-    .course-card h3 {
-      font-size: 1.5rem;
-      font-weight: 700;
-      margin-bottom: 8px;
-      color: #13324b;
-    }
-    .course-desc {
-      color: #2b4a6b;
-      margin-bottom: 16px;
-      font-weight: 500;
-    }
-    .meta-row {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 8px 16px;
-      font-size: 0.95rem;
-      color: #3f5e7c;
-      margin: 16px 0 12px;
-    }
-    .badge {
-      background: #e3f0f5;
-      color: #0a4c6e;
-      font-weight: 600;
-      padding: 5px 16px;
-      border-radius: 50px;
-      font-size: 0.8rem;
-      display: inline-block;
-    }
-    .register-micro {
-      margin-top: 18px;
-      background: #ecf5fd;
-      border-radius: 60px;
-      padding: 8px 18px;
-      font-size: 0.9rem;
-      font-weight: 600;
-      color: #0c3b60;
-      display: inline-flex;
-      align-items: center;
-      gap: 10px;
-      cursor: pointer;
-    }
-    /* footer */
-    footer {
-      display: flex;
-      justify-content: space-between;
-      border-top: 1px solid #c7d9ec;
-      padding: 32px 0;
-      margin-top: 20px;
-      color: #2e5475;
-      flex-wrap: wrap;
-    }
-    .footer-links a {
-      margin-left: 28px;
-      color: #1d4468;
-      text-decoration: none;
-      font-weight: 500;
-    }
-    @media (max-width: 700px) {
-      .auth-row { flex-direction: column; }
-    }
-  </style>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{
+  font-family:'Inter',sans-serif;
+  background:#f4f8fe;
+  color:#0b253b;
+}
+.hidden{display:none!important}
+.app{max-width:1300px;margin:auto;padding:0 30px}
+
+/* HEADER */
+header{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  padding:25px 0;
+}
+.logo{
+  font-size:2rem;
+  font-weight:800;
+  background:linear-gradient(145deg,#0e2f4b,#1d4f7a);
+  -webkit-background-clip:text;
+  -webkit-text-fill-color:transparent;
+}
+.btn{
+  padding:10px 25px;
+  border-radius:40px;
+  border:none;
+  cursor:pointer;
+  font-weight:600;
+}
+.btn-outline{
+  border:1.5px solid #1d3e6b;
+  background:none;
+  color:#1d3e6b;
+}
+.btn-dark{
+  background:#1f3e6b;
+  color:white;
+}
+
+/* HERO */
+.hero{
+  text-align:center;
+  padding:50px 0 30px;
+}
+.hero h1{
+  font-size:3rem;
+  font-weight:800;
+}
+.hero p{
+  margin-top:10px;
+  font-size:1.2rem;
+  color:#3a5c7c;
+}
+
+/* AUTH */
+.auth-box{
+  background:white;
+  border-radius:25px;
+  padding:30px;
+  box-shadow:0 20px 40px -20px rgba(0,0,0,0.1);
+  margin:30px 0;
+}
+.auth-box input, .auth-box select{
+  width:100%;
+  padding:14px;
+  margin-top:8px;
+  border-radius:25px;
+  border:1px solid #cfddee;
+  margin-bottom:18px;
+}
+.auth-switch{
+  font-size:.9rem;
+  margin-top:10px;
+}
+.auth-switch span{
+  color:#1e5d9e;
+  cursor:pointer;
+  font-weight:600;
+}
+
+/* DASHBOARD */
+.dashboard-header{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  margin:30px 0;
+}
+.filter-bar{
+  display:flex;
+  gap:10px;
+  flex-wrap:wrap;
+  margin-bottom:20px;
+}
+.filter-btn{
+  padding:8px 20px;
+  border-radius:30px;
+  border:1px solid #bcd2e9;
+  background:white;
+  cursor:pointer;
+}
+.filter-btn.active{
+  background:#1f3e6b;
+  color:white;
+  border-color:#1f3e6b;
+}
+.grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fill,minmax(280px,1fr));
+  gap:25px;
+}
+.card{
+  background:white;
+  padding:25px;
+  border-radius:20px;
+  cursor:pointer;
+  border:1px solid #e5f0fa;
+  transition:.2s;
+}
+.card:hover{
+  transform:translateY(-5px);
+}
+.badge{
+  background:#e3f0f5;
+  padding:5px 15px;
+  border-radius:20px;
+  font-size:.8rem;
+  display:inline-block;
+  margin-top:10px;
+}
+
+/* MODAL */
+.modal{
+  position:fixed;
+  inset:0;
+  background:rgba(0,0,0,0.5);
+  display:flex;
+  justify-content:center;
+  align-items:center;
+}
+.modal-content{
+  background:white;
+  padding:30px;
+  border-radius:20px;
+  width:400px;
+}
+
+/* TOAST */
+.toast{
+  position:fixed;
+  bottom:20px;
+  right:20px;
+  background:#1f3e6b;
+  color:white;
+  padding:15px 25px;
+  border-radius:30px;
+}
+</style>
 </head>
 <body>
-<div class="app-wrapper">
-  <!-- header with tab toggles (login / register) -->
-  <header class="main-header">
-    <span class="logo">⌘ CodeSphere</span>
-    <div style="display: flex; gap: 25px; align-items: center;">
-      <div class="auth-tabs" id="authTabs">
-        <button class="auth-tab-btn active" id="tabLoginBtn">Login</button>
-        <button class="auth-tab-btn" id="tabRegisterBtn">Register</button>
-      </div>
-      <button class="login-btn-header" id="headerQuickLogin">🔑 Demo</button>
-    </div>
-  </header>
 
-  <!-- dynamic auth panel (login/register toggle) -->
-  <div class="auth-panel" id="authPanel">
-    <!-- login form (visible by default) -->
-    <div id="loginFormContainer">
-      <div class="auth-form">
-        <div class="auth-row">
-          <div class="auth-field">
-            <label>Email</label>
-            <input type="email" id="loginEmail" placeholder="hello@domain.com" value="demo@code.com">
-          </div>
-          <div class="auth-field">
-            <label>Password</label>
-            <input type="password" id="loginPassword" placeholder="••••••••" value="secret123">
-          </div>
-        </div>
-        <button class="auth-btn" id="loginActionBtn">Log in to dashboard</button>
-        <div class="toggle-link">Not a member? <span id="switchToRegister">Register now →</span></div>
-      </div>
-    </div>
-    <!-- register form (hidden initially) -->
-    <div id="registerFormContainer" class="hidden">
-      <div class="auth-form">
-        <div class="auth-row">
-          <div class="auth-field"><label>Full name</label><input type="text" id="regName" placeholder="Alex Chen"></div>
-          <div class="auth-field"><label>Email</label><input type="email" id="regEmail" placeholder="alex@example.com"></div>
-        </div>
-        <div class="auth-row">
-          <div class="auth-field"><label>Phone</label><input type="tel" id="regPhone" placeholder="+91 98765 43210"></div>
-          <div class="auth-field"><label>Interest</label>
-            <select id="regInterest"><option>Web dev</option><option>Data science</option><option>AI/ML</option><option>DSA</option></select>
-          </div>
-        </div>
-        <button class="auth-btn" id="registerActionBtn">Create account →</button>
-        <div class="toggle-link">Already have an account? <span id="switchToLogin">Login</span></div>
-      </div>
-    </div>
+<div class="app">
+
+<header>
+  <div class="logo">⌘ CodeSphere</div>
+  <button id="logoutBtn" class="btn btn-outline hidden">Logout</button>
+</header>
+
+<section class="hero">
+  <h1>Build Your Tech Career 🚀</h1>
+  <p>Industry-ready programs with real-world projects</p>
+</section>
+
+<!-- AUTH -->
+<div id="authSection" class="auth-box">
+  <h2 id="authTitle">Login</h2>
+  <input type="text" id="nameField" class="hidden" placeholder="Full Name">
+  <input type="email" id="email" placeholder="Email">
+  <input type="password" id="password" placeholder="Password">
+  <select id="interestField" class="hidden">
+    <option>Web dev</option>
+    <option>Data science</option>
+    <option>DSA</option>
+    <option>Cloud</option>
+  </select>
+  <button id="authBtn" class="btn btn-dark">Login</button>
+  <div class="auth-switch">
+    <span id="toggleAuth">Create account</span>
+  </div>
+</div>
+
+<!-- DASHBOARD -->
+<div id="dashboardSection" class="hidden">
+  <div class="dashboard-header">
+    <h2>Welcome, <span id="userDisplay"></span> 👋</h2>
   </div>
 
-  <!-- catalog filter bar (dynamic active filter) -->
-  <div class="catalog-header">
-    <h2 style="font-size: 2rem; font-weight: 700; color: #103656;">📘 full course catalog</h2>
-    <div class="filter-tabs" id="filterContainer">
-      <button class="filter-btn active-filter" data-filter="all">All</button>
-      <button class="filter-btn" data-filter="web">Web dev</button>
-      <button class="filter-btn" data-filter="data">Data/AI</button>
-      <button class="filter-btn" data-filter="dsa">DSA</button>
-      <button class="filter-btn" data-filter="cloud">Cloud/DevOps</button>
-    </div>
+  <div class="filter-bar">
+    <button class="filter-btn active" data-filter="all">All</button>
+    <button class="filter-btn" data-filter="web">Web</button>
+    <button class="filter-btn" data-filter="data">Data</button>
+    <button class="filter-btn" data-filter="dsa">DSA</button>
+    <button class="filter-btn" data-filter="cloud">Cloud</button>
   </div>
 
-  <!-- dynamic course grid injected via JS -->
-  <div class="course-grid" id="courseGrid"></div>
+  <div class="grid" id="courseGrid"></div>
+</div>
 
-  <!-- footer -->
-  <footer>
-    <div>© 2025 CodeSphere – learn code, build future</div>
-    <div class="footer-links"><a href="#">About</a><a href="#">Careers</a><a href="#">Privacy</a></div>
-  </footer>
+</div>
+
+<!-- MODAL -->
+<div id="modal" class="modal hidden">
+  <div class="modal-content">
+    <h3 id="modalTitle"></h3>
+    <p id="modalDesc"></p>
+    <br>
+    <button class="btn btn-dark" onclick="closeModal()">Close</button>
+  </div>
 </div>
 
 <script>
-  (function() {
-    // ---------- MOCK COURSE DATABASE (dynamic) ----------
-    const courseCatalog = [
-      { id: 1, title: 'Full‑stack web dev', desc: 'MERN, Next.js, real projects', category: 'web', duration: '6 mo', placement: '128% hike', badge: 'cohort open' },
-      { id: 2, title: 'Data science pro', desc: 'Python, SQL, Tableau, ML', category: 'data', duration: '7 mo', placement: '200+ partners', badge: 'early bird' },
-      { id: 3, title: 'Gen AI & LLM', desc: 'LangChain, RAG, OpenAI', category: 'data', duration: '4 mo', placement: 'industry capstone', badge: 'new' },
-      { id: 4, title: 'Advanced DSA', desc: '400+ problems, system design', category: 'dsa', duration: '5 mo', placement: 'MAANG prep', badge: 'interview focus' },
-      { id: 5, title: 'DevOps bootcamp', desc: 'Docker, k8s, CI/CD, AWS', category: 'cloud', duration: '4 mo', placement: 'devops roles', badge: 'limited seats' },
-      { id: 6, title: 'Data analytics', desc: 'Power BI, Excel, SQL', category: 'data', duration: '3 mo', placement: 'analyst track', badge: 'enrollment' },
-      { id: 7, title: 'Frontend architect', desc: 'React, TS, performance', category: 'web', duration: '4 mo', placement: 'UI specialist', badge: 'flexible' },
-      { id: 8, title: 'Cyber security', desc: 'Network, ethical hacking', category: 'cloud', duration: '6 mo', placement: 'blue team', badge: 'advanced' },
-      { id: 9, title: 'Python for everyone', desc: 'Basics to automation', category: 'dsa', duration: '2 mo', placement: 'fundamentals', badge: 'beginner' }
-    ];
 
-    const courseGrid = document.getElementById('courseGrid');
-    const filterBtns = document.querySelectorAll('.filter-btn');
-    let activeFilter = 'all';
+const courses=[
+{id:1,title:"Full Stack Web Dev",desc:"MERN, Next.js, Projects",cat:"web"},
+{id:2,title:"Data Science Pro",desc:"Python, ML, SQL",cat:"data"},
+{id:3,title:"Advanced DSA",desc:"400+ Problems",cat:"dsa"},
+{id:4,title:"DevOps Bootcamp",desc:"Docker, AWS, CI/CD",cat:"cloud"}
+];
 
-    // render courses based on filter
-    function renderCourses(filter = 'all') {
-      const filtered = filter === 'all' ? courseCatalog : courseCatalog.filter(c => c.category === filter);
-      courseGrid.innerHTML = filtered.map(c => `
-        <article class="course-card">
-          <h3>${c.title}</h3>
-          <div class="course-desc">${c.desc}</div>
-          <div class="meta-row"><span>⏱️ ${c.duration}</span><span>📈 ${c.placement}</span></div>
-          <span class="badge">${c.badge}</span>
-          <div class="register-micro" data-course="${c.title}">📌 quick register →</div>
-        </article>
-      `).join('');
+const authBtn=document.getElementById("authBtn");
+const toggleAuth=document.getElementById("toggleAuth");
+const nameField=document.getElementById("nameField");
+const interestField=document.getElementById("interestField");
+const authTitle=document.getElementById("authTitle");
+const authSection=document.getElementById("authSection");
+const dashboard=document.getElementById("dashboardSection");
+const userDisplay=document.getElementById("userDisplay");
+const logoutBtn=document.getElementById("logoutBtn");
 
-      // attach event to "quick register" micro buttons (show register tab)
-      document.querySelectorAll('.register-micro').forEach(el => {
-        el.addEventListener('click', (e) => {
-          e.stopPropagation();
-          // switch to register tab and prefill interest if possible
-          showRegisterTab(true);
-          const courseName = el.dataset.course || '';
-          const regInterestField = document.getElementById('regInterest');
-          if (regInterestField) {
-            // crude mapping: just set any value as example
-            regInterestField.value = courseName.includes('web') ? 'Web dev' : 
-                                     courseName.includes('data')||courseName.includes('Data')||courseName.includes('AI') ? 'Data science' : 'DSA';
-          }
-          alert(`✨ Pre-filled registration for "${courseName}" – demo`);
-        });
-      });
-    }
+let isLogin=true;
 
-    // filter event listeners
-    filterBtns.forEach(btn => {
-      btn.addEventListener('click', () => {
-        filterBtns.forEach(b => b.classList.remove('active-filter'));
-        btn.classList.add('active-filter');
-        activeFilter = btn.dataset.filter;
-        renderCourses(activeFilter);
-      });
-    });
+toggleAuth.onclick=()=>{
+  isLogin=!isLogin;
+  authTitle.innerText=isLogin?"Login":"Register";
+  authBtn.innerText=isLogin?"Login":"Register";
+  nameField.classList.toggle("hidden",isLogin);
+  interestField.classList.toggle("hidden",isLogin);
+  toggleAuth.innerText=isLogin?"Create account":"Already have account?";
+};
 
-    // ---------- TAB SYSTEM: LOGIN / REGISTER ----------
-    const tabLogin = document.getElementById('tabLoginBtn');
-    const tabRegister = document.getElementById('tabRegisterBtn');
-    const loginContainer = document.getElementById('loginFormContainer');
-    const registerContainer = document.getElementById('registerFormContainer');
-    const switchToRegister = document.getElementById('switchToRegister');
-    const switchToLogin = document.getElementById('switchToLogin');
+authBtn.onclick=()=>{
+  const email=document.getElementById("email").value;
+  if(!email)return toast("Enter email");
+  localStorage.setItem("user",email);
+  loadDashboard(email);
+  toast(isLogin?"Login successful":"Registered successfully");
+};
 
-    function setActiveTab(tab) {
-      tabLogin.classList.toggle('active', tab === 'login');
-      tabRegister.classList.toggle('active', tab === 'register');
-      loginContainer.classList.toggle('hidden', tab !== 'login');
-      registerContainer.classList.toggle('hidden', tab !== 'register');
-    }
+logoutBtn.onclick=()=>{
+  localStorage.removeItem("user");
+  dashboard.classList.add("hidden");
+  authSection.classList.remove("hidden");
+  logoutBtn.classList.add("hidden");
+  toast("Logged out");
+};
 
-    tabLogin.addEventListener('click', () => setActiveTab('login'));
-    tabRegister.addEventListener('click', () => setActiveTab('register'));
-    if (switchToRegister) switchToRegister.addEventListener('click', () => setActiveTab('register'));
-    if (switchToLogin) switchToLogin.addEventListener('click', () => setActiveTab('login'));
+function loadDashboard(user){
+  userDisplay.innerText=user;
+  authSection.classList.add("hidden");
+  dashboard.classList.remove("hidden");
+  logoutBtn.classList.remove("hidden");
+  renderCourses("all");
+}
 
-    // quick demo register function from header demo
-    document.getElementById('headerQuickLogin').addEventListener('click', ()=>{
-      alert('⚡ quick demo: you are now viewed as “aspiring dev”. All catalog active.');
-    });
+function renderCourses(filter){
+  const grid=document.getElementById("courseGrid");
+  grid.innerHTML="";
+  courses.filter(c=>filter==="all"||c.cat===filter)
+  .forEach(c=>{
+    const card=document.createElement("div");
+    card.className="card";
+    card.innerHTML=`<h3>${c.title}</h3><p>${c.desc}</p><div class="badge">${c.cat}</div>`;
+    card.onclick=()=>openModal(c);
+    grid.appendChild(card);
+  });
+}
 
-    // login action (demo)
-    document.getElementById('loginActionBtn').addEventListener('click', (e) => {
-      e.preventDefault();
-      const email = document.getElementById('loginEmail').value;
-      alert(`✅ demo login welcome ${email || 'guest'}! (no validation)`);
-    });
+document.querySelectorAll(".filter-btn").forEach(btn=>{
+  btn.onclick=()=>{
+    document.querySelectorAll(".filter-btn").forEach(b=>b.classList.remove("active"));
+    btn.classList.add("active");
+    renderCourses(btn.dataset.filter);
+  };
+});
 
-    // register action (demo)
-    document.getElementById('registerActionBtn').addEventListener('click', (e) => {
-      e.preventDefault();
-      const name = document.getElementById('regName').value || 'learner';
-      alert(`🎉 Thanks ${name}, you're registered (demo). Explore courses!`);
-      setActiveTab('login'); // switch to login after register demo
-    });
+function openModal(course){
+  document.getElementById("modalTitle").innerText=course.title;
+  document.getElementById("modalDesc").innerText=course.desc;
+  document.getElementById("modal").classList.remove("hidden");
+}
 
-    // external function to show register tab (used by quick register)
-    window.showRegisterTab = function(triggerAlert = false) {
-      setActiveTab('register');
-    };
+function closeModal(){
+  document.getElementById("modal").classList.add("hidden");
+}
 
-    // initially render
-    renderCourses('all');
+function toast(msg){
+  const t=document.createElement("div");
+  t.className="toast";
+  t.innerText=msg;
+  document.body.appendChild(t);
+  setTimeout(()=>t.remove(),3000);
+}
 
-    // smooth extra: login/register toggle also from "not a member" etc works
+window.onload=()=>{
+  const user=localStorage.getItem("user");
+  if(user) loadDashboard(user);
+};
 
-    // add smooth logout feeling? just for demo we keep
-
-    // adding tiny dynamic for filter consistency
-  })();
 </script>
-<!-- no extra script needed, all built in -->
+
 </body>
 </html>
