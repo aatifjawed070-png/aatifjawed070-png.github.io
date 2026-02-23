@@ -1,102 +1,120 @@
-// ===============================
-// CONFIG
-// ===============================
-const API_URL = "https://localhost:7024/WeatherForecast";
-let weatherData = [];
-
-// ===============================
-// LOAD WEATHER DATA
-// ===============================
-function loadWeather() {
-    const loader = document.getElementById("loader");
-    const tbody = document.getElementById("weatherBody");
-
-    // Show loader
-    loader.classList.remove("hidden");
-
-    // Clear table
-    tbody.innerHTML = "";
-
-    fetch(API_URL)
-        .then(response => {
-            if (!response.ok) {
-                throw new Error("HTTP error " + response.status);
-            }
-            return response.json();
-        })
-        .then(data => {
-            weatherData = data;
-            loader.classList.add("hidden");
-            renderTable(weatherData);
-        })
-        .catch(error => {
-            loader.classList.add("hidden");
-            tbody.innerHTML = `
-                <tr>
-                    <td colspan="4" class="empty-state">
-                        Failed to load data
-                    </td>
-                </tr>
-            `;
-            console.error("API Error:", error);
-        });
-}
-
-// ===============================
-// RENDER TABLE
-// ===============================
-function renderTable(data) {
-    const tbody = document.getElementById("weatherBody");
-    tbody.innerHTML = "";
-
-    if (!data || data.length === 0) {
-        tbody.innerHTML = `
-            <tr>
-                <td colspan="4" class="empty-state">
-                    No records found
-                </td>
-            </tr>
-        `;
-        return;
+// ===== Hero "Find your course" form validation =====
+document.addEventListener("DOMContentLoaded", function () {
+    const leadForm = document.getElementById("leadForm");
+    if (leadForm) {
+      leadForm.addEventListener("submit", function (e) {
+        e.preventDefault();
+  
+        const exp = leadForm.querySelector('input[name="exp"]:checked');
+        const interest = document.getElementById("interest");
+        const name = document.getElementById("name");
+        const phone = document.getElementById("phone");
+        const email = document.getElementById("email");
+  
+        // Simple validation rules
+        let errors = [];
+  
+        if (!exp) {
+          errors.push("Please select your experience.");
+        }
+  
+        if (!interest.value) {
+          errors.push("Please select a topic of interest.");
+        }
+  
+        if (!name.value.trim()) {
+          errors.push("Please enter your name.");
+        }
+  
+        const phoneRegex = /^[0-9]{10}$/;
+        if (!phone.value.trim() || !phoneRegex.test(phone.value.trim())) {
+          errors.push("Please enter a valid 10-digit phone number.");
+        }
+  
+        const emailRegex = /^([a-zA-Z0-9._%+-]+)@([a-zA-Z0-9.-]+)\.([a-zA-Z]{2,})$/;
+        if (!email.value.trim() || !emailRegex.test(email.value.trim())) {
+          errors.push("Please enter a valid email address.");
+        }
+  
+        if (errors.length > 0) {
+          alert(errors.join("\n"));
+          return;
+        }
+  
+        // Success (no backend yet)
+        alert("Thank you! Our team will contact you soon.");
+        leadForm.reset();
+      });
     }
-
-    data.forEach(item => {
-        const tempClass = getTempClass(item.temperatureC);
-
-        const row = document.createElement("tr");
-
-        row.innerHTML = `
-            <td>${item.date}</td>
-            <td class="${tempClass}">${item.temperatureC} °C</td>
-            <td>${item.temperatureF} °F</td>
-            <td>${item.summary}</td>
-        `;
-
-        tbody.appendChild(row);
-    });
-}
-
-// ===============================
-// TEMPERATURE COLOR LOGIC
-// ===============================
-function getTempClass(tempC) {
-    if (tempC <= 5) return "cold";     // Blue
-    if (tempC >= 30) return "hot";     // Red
-    return "mild";                     // Green
-}
-
-// ===============================
-// SEARCH / FILTER
-// ===============================
-function filterTable() {
-    const searchValue = document
-        .getElementById("searchInput")
-        .value
-        .toLowerCase();
-
-    const filteredData = weatherData.filter(item =>
-        item.summary.toLowerCase().includes(searchValue)
+  
+    // ===== Sidebar domain buttons (Data Analytics / AI / etc.) =====
+    const domainButtons = document.querySelectorAll(
+      ".cn-courses-sidebar button"
     );
-
-    renderTable(filteredData);
-}
+    domainButtons.forEach((btn) => {
+      btn.addEventListener("click", () => {
+        domainButtons.forEach((b) => b.classList.remove("active"));
+        btn.classList.add("active");
+  
+        // Later you can change course cards depending on button here
+        // Example placeholder:
+        console.log("Selected domain:", btn.textContent.trim());
+      });
+    });
+  
+    // ===== Login / Register simple validation (if those forms exist) =====
+    const loginForm = document.getElementById("loginForm");
+    if (loginForm) {
+      loginForm.addEventListener("submit", function (e) {
+        e.preventDefault();
+        const email = loginForm.querySelector("#loginEmail");
+        const password = loginForm.querySelector("#loginPassword");
+  
+        if (!email.value.trim() || !password.value.trim()) {
+          alert("Please enter email and password.");
+          return;
+        }
+  
+        alert("Login successful (demo only, no backend yet).");
+        loginForm.reset();
+      });
+    }
+  
+    const registerForm = document.getElementById("registerForm");
+    if (registerForm) {
+      registerForm.addEventListener("submit", function (e) {
+        e.preventDefault();
+        const name = registerForm.querySelector("#regName");
+        const email = registerForm.querySelector("#regEmail");
+        const phone = registerForm.querySelector("#regPhone");
+        const password = registerForm.querySelector("#regPassword");
+        const confirm = registerForm.querySelector("#regConfirm");
+  
+        let errors = [];
+        if (!name.value.trim()) errors.push("Name is required.");
+  
+        const emailRegex = /^([a-zA-Z0-9._%+-]+)@([a-zA-Z0-9.-]+)\.([a-zA-Z]{2,})$/;
+        if (!emailRegex.test(email.value.trim()))
+          errors.push("Enter a valid email.");
+  
+        const phoneRegex = /^[0-9]{10}$/;
+        if (!phoneRegex.test(phone.value.trim()))
+          errors.push("Phone must be 10 digits.");
+  
+        if (password.value.length < 6)
+          errors.push("Password must be at least 6 characters.");
+  
+        if (password.value !== confirm.value)
+          errors.push("Passwords do not match.");
+  
+        if (errors.length > 0) {
+          alert(errors.join("\n"));
+          return;
+        }
+  
+        alert("Registration successful (demo only).");
+        registerForm.reset();
+      });
+    }
+  });
+  

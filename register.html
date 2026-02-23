@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Register • CodeLearn</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header class="cn-header">
+    <div class="cn-logo">CodeLearn</div>
+    <nav class="cn-nav">
+      <a href="index.html">Home</a>
+      <a href="course.html">Courses</a>
+      <a href="lesson.html">Lessons</a>
+    </nav>
+    <a href="login.html" class="cn-login-btn">Login</a>
+  </header>
+
+  <main class="auth-wrapper">
+    <section class="auth-card">
+      <h1>Create your account</h1>
+      <p class="auth-sub">Takes less than 1 minute. Start learning today.</p>
+
+      <form id="registerForm">
+        <div class="field-group">
+          <label for="regName">Full name</label>
+          <input type="text" id="regName" placeholder="Enter full name">
+        </div>
+
+        <div class="field-group">
+          <label for="regEmail">Email</label>
+          <input type="email" id="regEmail" placeholder="Enter email">
+        </div>
+
+        <div class="field-group">
+          <label for="regPhone">Phone number</label>
+          <input type="tel" id="regPhone" placeholder="10-digit mobile number">
+        </div>
+
+        <div class="field-group">
+          <label for="regPassword">Password</label>
+          <input type="password" id="regPassword" placeholder="Minimum 6 characters">
+        </div>
+
+        <div class="field-group">
+          <label for="regConfirm">Confirm password</label>
+          <input type="password" id="regConfirm" placeholder="Re-enter password">
+        </div>
+
+        <button type="submit" class="cn-primary-btn">Create account</button>
+
+        <p class="auth-footer-text">
+          Already have an account?
+          <a href="login.html">Login</a>
+        </p>
+      </form>
+    </section>
+  </main>
+
+  <script src="script.js"></script>
+</body>
+</html>
