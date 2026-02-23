@@ -1,253 +1,349 @@
-* {
+/* ===== Global reset ===== */
+*,
+*::before,
+*::after {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
 }
 
-body {
+html, body {
+  height: 100%;
   font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-  line-height: 1.6;
-  color: #111827;
-  background: #f3f4f6;
 }
 
-/* Header / Nav */
-.header {
-  background: #111827;
-  color: #f9fafb;
-  border-bottom: 1px solid #1f2937;
+body {
+  background: radial-gradient(circle at top, #1e1f3a 0, #05060b 50%, #050507 100%);
+  color: #f5f5f5;
+  line-height: 1.5;
 }
 
-.nav-container {
-  max-width: 1000px;
+/* ===== Layout helpers ===== */
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+button {
+  border: none;
+  cursor: pointer;
+  font: inherit;
+}
+
+input, select {
+  font: inherit;
+}
+
+/* ===== Header / Navbar ===== */
+.cn-header {
+  width: 100%;
+  max-width: 1200px;
   margin: 0 auto;
-  padding: 12px 16px;
+  padding: 18px 24px;
   display: flex;
   align-items: center;
   justify-content: space-between;
+  position: sticky;
+  top: 0;
+  z-index: 20;
+  background: linear-gradient(to right, rgba(5,6,12,0.95), rgba(8,10,20,0.95));
+  backdrop-filter: blur(10px);
 }
 
-.brand {
+.cn-logo {
   font-weight: 700;
-  font-size: 1.1rem;
-  text-decoration: none;
-  color: #f9fafb;
+  font-size: 1.3rem;
+  letter-spacing: 0.03em;
+  color: #ffb545;
 }
 
-.nav-links a {
-  margin-left: 16px;
-  text-decoration: none;
-  color: #e5e7eb;
+.cn-nav {
+  display: flex;
+  gap: 24px;
   font-size: 0.95rem;
 }
 
-.nav-links a:hover {
-  color: #60a5fa;
+.cn-nav a {
+  opacity: 0.85;
 }
 
-/* Main container */
-.container {
-  max-width: 1000px;
-  margin: 0 auto;
-  padding: 24px 16px 40px;
+.cn-nav a:hover {
+  opacity: 1;
 }
 
-/* Hero */
-.hero {
-  background: #1f2937;
-  color: #f9fafb;
-  padding: 32px 24px;
-  border-radius: 12px;
-  margin-bottom: 32px;
-  text-align: left;
+.cn-login-btn {
+  padding: 8px 18px;
+  border-radius: 30px;
+  background: #ff7a3c;
+  color: #fff;
+  font-weight: 600;
+  box-shadow: 0 8px 18px rgba(255, 122, 60, 0.35);
 }
 
-.hero h1 {
-  font-size: 2rem;
-  margin-bottom: 12px;
-}
-
-.hero p {
-  margin-bottom: 12px;
-  max-width: 600px;
-}
-
-.hero-subtext {
-  font-size: 0.9rem;
-  color: #d1d5db;
-}
-
-/* Button */
-.btn {
-  display: inline-block;
-  background: #2563eb;
-  color: white;
-  padding: 10px 18px;
-  border-radius: 999px;
-  text-decoration: none;
-  font-weight: 500;
-  margin-top: 8px;
-}
-
-.btn:hover {
-  background: #1d4ed8;
-}
-
-/* Sections */
-.section {
-  background: white;
-  border-radius: 12px;
-  padding: 24px 20px;
-  margin-bottom: 24px;
-  box-shadow: 0 1px 2px rgba(15, 23, 42, 0.06);
-}
-
-.section h2 {
-  font-size: 1.4rem;
-  margin-bottom: 16px;
-}
-
-/* Grids */
-.features-grid,
-.steps-grid,
-.articles-grid,
-.course-outline {
+/* ===== Hero section (two columns) ===== */
+.cn-hero {
+  max-width: 1200px;
+  margin: 32px auto 40px;
+  padding: 24px;
   display: grid;
+  grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr);
+  gap: 32px;
+  align-items: stretch;
+}
+
+.cn-hero-left {
+  padding: 32px 12px 32px 4px;
+}
+
+.cn-eyebrow {
+  color: #62ffb8;
+  font-size: 0.9rem;
+  margin-bottom: 12px;
+}
+
+.cn-hero-left h1 {
+  font-size: 2.4rem;
+  max-width: 18ch;
+  font-weight: 700;
+  margin-bottom: 24px;
+}
+
+.cn-metrics {
+  display: flex;
+  flex-direction: column;
   gap: 16px;
+  margin-top: 16px;
 }
 
-.features-grid {
-  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-}
-
-.steps-grid {
-  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-}
-
-.articles-grid {
-  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-}
-
-.course-outline {
-  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-}
-
-/* Cards */
-.feature-card,
-.step-card,
-.article-card,
-.course-column {
-  background: #f9fafb;
+.metric-card {
+  padding: 14px 18px;
   border-radius: 10px;
-  padding: 16px;
-  border: 1px solid #e5e7eb;
+  background: linear-gradient(135deg, rgba(23, 24, 45, 0.95), rgba(10, 11, 24, 0.95));
+  border: 1px solid rgba(152, 255, 190, 0.08);
+  box-shadow: 0 14px 40px rgba(0, 0, 0, 0.7);
 }
 
-.feature-card h3,
-.step-card h3,
-.article-card h3,
-.course-column h3 {
-  margin-bottom: 8px;
+.metric-title {
+  display: block;
+  font-weight: 600;
   font-size: 1rem;
 }
 
-.feature-card p,
-.step-card p,
-.article-card p {
-  font-size: 0.95rem;
-  color: #4b5563;
+.metric-sub {
+  display: block;
+  font-size: 0.82rem;
+  margin-top: 4px;
+  opacity: 0.7;
 }
 
-/* Step number */
-.step-number {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  width: 26px;
-  height: 26px;
-  border-radius: 999px;
-  background: #2563eb;
-  color: white;
-  font-size: 0.85rem;
-  font-weight: 600;
-  margin-bottom: 8px;
+/* ===== Right form card ===== */
+.cn-hero-right {
+  background: radial-gradient(circle at top, #27273f 0, #111224 60%, #05060d 100%);
+  border-radius: 22px;
+  padding: 22px 22px 24px;
+  border: 1px solid rgba(255, 255, 255, 0.09);
+  box-shadow:
+    0 0 30px rgba(255, 220, 145, 0.18),
+    0 30px 80px rgba(0, 0, 0, 0.9);
 }
 
-/* Lists */
-.bullet-list {
-  padding-left: 20px;
+.cn-hero-right h2 {
+  font-size: 1.25rem;
+  margin-bottom: 16px;
 }
 
-.bullet-list li {
+/* Form fields */
+.field-group {
+  margin-bottom: 14px;
+  font-size: 0.9rem;
+}
+
+.field-group > label {
+  display: block;
   margin-bottom: 6px;
-  color: #374151;
+  font-weight: 500;
 }
 
-/* Course list */
-.course-column ul {
-  list-style: disc;
-  padding-left: 18px;
+.field-group input[type="text"],
+.field-group input[type="email"],
+.field-group input[type="tel"],
+.field-group select {
+  width: 100%;
+  padding: 8px 10px;
+  border-radius: 6px;
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  background: rgba(5, 6, 12, 0.9);
+  color: #f5f5f5;
 }
 
-.course-column li {
-  margin-bottom: 4px;
+.field-group input::placeholder {
+  color: rgba(230, 230, 230, 0.5);
+}
+
+.field-group select {
+  appearance: none;
+}
+
+/* Radio group inline */
+.field-group input[type="radio"] {
+  margin-right: 6px;
+}
+
+.field-group label input[type="radio"] {
+  margin-right: 6px;
+}
+
+.field-group label + label {
+  display: block;
+  margin-top: 4px;
+}
+
+/* Primary button */
+.cn-primary-btn {
+  width: 100%;
+  margin-top: 10px;
+  padding: 12px 16px;
+  border-radius: 999px;
+  background: linear-gradient(135deg, #ff7a3c, #ffb545);
+  color: #201311;
+  font-weight: 700;
+  font-size: 0.96rem;
+  box-shadow: 0 18px 40px rgba(255, 122, 60, 0.45);
+}
+
+/* ===== Courses layout (second section) ===== */
+.cn-courses {
+  max-width: 1200px;
+  margin: 10px auto 60px;
+  padding: 24px;
+  display: grid;
+  grid-template-columns: 260px minmax(0, 1.7fr) minmax(0, 1.1fr);
+  gap: 24px;
+}
+
+/* Left sidebar */
+.cn-courses-sidebar {
+  background: rgba(10, 11, 22, 0.98);
+  border-radius: 18px;
+  padding: 18px;
+  border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.cn-courses-sidebar h3 {
   font-size: 0.95rem;
+  margin-bottom: 10px;
+  opacity: 0.8;
 }
 
-/* Ad slot */
-.ad-slot {
-  background: #f9fafb;
+.cn-courses-sidebar button {
+  width: 100%;
+  text-align: left;
+  padding: 9px 10px;
+  margin-bottom: 6px;
   border-radius: 10px;
-  padding: 16px;
-  border: 1px dashed #d1d5db;
-  font-size: 0.9rem;
-  color: #4b5563;
+  background: transparent;
+  color: #f5f5f5;
+  opacity: 0.8;
 }
 
-/* CTA section */
-.section-cta {
-  text-align: center;
+.cn-courses-sidebar button.active,
+.cn-courses-sidebar button:hover {
+  background: rgba(255, 255, 255, 0.06);
+  opacity: 1;
 }
 
-.section-cta h2 {
+/* Middle course list */
+.cn-courses-list {
+  background: rgba(9, 10, 20, 0.98);
+  border-radius: 18px;
+  padding: 18px 18px 8px;
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  max-height: 420px;
+  overflow-y: auto;
+}
+
+.course-card {
+  padding: 12px 12px 10px;
+  border-radius: 12px;
+  background: rgba(23, 24, 45, 0.95);
+  border: 1px solid rgba(255, 255, 255, 0.04);
+}
+
+.course-card h4 {
+  font-size: 0.95rem;
+  margin-bottom: 4px;
+}
+
+.course-card p {
+  font-size: 0.8rem;
+  opacity: 0.8;
+  margin-bottom: 6px;
+}
+
+.badge {
+  display: inline-block;
+  padding: 3px 8px;
+  font-size: 0.7rem;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.08);
+}
+
+.badge.enrollment-open {
+  background: rgba(71, 228, 166, 0.25);
+  color: #8cffc8;
+}
+
+.badge.enrollment-closed {
+  background: rgba(255, 85, 85, 0.18);
+  color: #ffc1c1;
+}
+
+/* Right bootcamp column */
+.cn-bootcamp {
+  background: rgba(10, 11, 22, 0.98);
+  border-radius: 18px;
+  padding: 18px;
+  border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.cn-bootcamp h3 {
+  font-size: 0.95rem;
   margin-bottom: 8px;
 }
 
-.section-cta p {
-  margin-bottom: 12px;
+.cn-bootcamp p {
+  font-size: 0.85rem;
+  opacity: 0.85;
 }
 
-/* Footer */
-.footer {
-  text-align: center;
-  padding: 16px;
-  font-size: 0.9rem;
-  color: #6b7280;
-  border-top: 1px solid #e5e7eb;
-  background: #f9fafb;
-}
-
-.footer a {
-  color: #2563eb;
-  text-decoration: none;
-}
-
-.footer a:hover {
-  text-decoration: underline;
-}
-
-/* Responsive tweaks */
-@media (max-width: 640px) {
-  .hero {
-    padding: 24px 18px;
+/* ===== Responsive ===== */
+@media (max-width: 960px) {
+  .cn-hero {
+    grid-template-columns: 1fr;
   }
 
-  .hero h1 {
-    font-size: 1.6rem;
+  .cn-header {
+    padding-inline: 16px;
   }
 
-  .nav-links a {
-    margin-left: 10px;
-    font-size: 0.85rem;
+  .cn-nav {
+    display: none; /* simplify on mobile */
+  }
+
+  .cn-courses {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 600px) {
+  .cn-hero-left h1 {
+    font-size: 1.9rem;
+  }
+
+  .cn-header {
+    position: static;
   }
 }
