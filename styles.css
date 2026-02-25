@@ -1,391 +1,226 @@
-/* ===== Global reset ===== */
-*,
-*::before,
-*::after {
+/* ===== RESET ===== */
+* {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
 }
 
-html, body {
-  height: 100%;
-  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-}
-
+/* ===== BODY ===== */
 body {
-  background: radial-gradient(circle at top, #1e1f3a 0, #05060b 50%, #050507 100%);
-  color: #f5f5f5;
-  line-height: 1.5;
+  font-family: Arial, Helvetica, sans-serif;
+  background: #f9fafb;
+  color: #111827;
+  line-height: 1.6;
 }
 
-/* ===== Layout helpers ===== */
-a {
-  color: inherit;
-  text-decoration: none;
+/* ===== CONTAINER ===== */
+.container {
+  max-width: 1100px;
+  margin: auto;
+  padding: 20px;
 }
 
-button {
-  border: none;
-  cursor: pointer;
-  font: inherit;
-}
-
-input, select {
-  font: inherit;
-}
-
-/* ===== Header / Navbar ===== */
-.cn-header {
-  width: 100%;
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 18px 24px;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
+/* ===== HEADER ===== */
+.header {
+  background: white;
+  border-bottom: 1px solid #e5e7eb;
   position: sticky;
   top: 0;
-  z-index: 20;
-  background: linear-gradient(to right, rgba(5,6,12,0.95), rgba(8,10,20,0.95));
-  backdrop-filter: blur(10px);
+  z-index: 1000;
 }
 
-.cn-logo {
-  font-weight: 700;
-  font-size: 1.3rem;
-  letter-spacing: 0.03em;
-  color: #ffb545;
-}
-
-.cn-nav {
+.nav-container {
+  max-width: 1100px;
+  margin: auto;
+  padding: 14px 20px;
   display: flex;
-  gap: 24px;
-  font-size: 0.95rem;
+  justify-content: space-between;
+  align-items: center;
 }
 
-.cn-nav a {
-  opacity: 0.85;
+/* Brand */
+.brand {
+  font-size: 20px;
+  font-weight: bold;
+  text-decoration: none;
+  color: #2563eb;
 }
 
-.cn-nav a:hover {
-  opacity: 1;
+/* Navigation */
+.nav-links a {
+  text-decoration: none;
+  margin-left: 20px;
+  color: #374151;
+  font-size: 14px;
 }
 
-.cn-login-btn {
-  padding: 8px 18px;
-  border-radius: 30px;
-  background: #ff7a3c;
-  color: #fff;
-  font-weight: 600;
-  box-shadow: 0 8px 18px rgba(255, 122, 60, 0.35);
+.nav-links a:hover {
+  color: #2563eb;
 }
 
-/* ===== Hero section (two columns) ===== */
-.cn-hero {
-  max-width: 1200px;
-  margin: 32px auto 40px;
-  padding: 24px;
-  display: grid;
-  grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr);
-  gap: 32px;
-  align-items: stretch;
+/* ===== SECTIONS ===== */
+
+.section {
+  background: white;
+  padding: 22px;
+  margin-bottom: 20px;
+  border-radius: 8px;
+  border: 1px solid #e5e7eb;
 }
 
-.cn-hero-left {
-  padding: 32px 12px 32px 4px;
-}
-
-.cn-eyebrow {
-  color: #62ffb8;
-  font-size: 0.9rem;
-  margin-bottom: 12px;
-}
-
-.cn-hero-left h1 {
-  font-size: 2.4rem;
-  max-width: 18ch;
-  font-weight: 700;
-  margin-bottom: 24px;
-}
-
-.cn-metrics {
-  display: flex;
-  flex-direction: column;
-  gap: 16px;
-  margin-top: 16px;
-}
-
-.metric-card {
-  padding: 14px 18px;
-  border-radius: 10px;
-  background: linear-gradient(135deg, rgba(23, 24, 45, 0.95), rgba(10, 11, 24, 0.95));
-  border: 1px solid rgba(152, 255, 190, 0.08);
-  box-shadow: 0 14px 40px rgba(0, 0, 0, 0.7);
-}
-
-.metric-title {
-  display: block;
-  font-weight: 600;
-  font-size: 1rem;
-}
-
-.metric-sub {
-  display: block;
-  font-size: 0.82rem;
-  margin-top: 4px;
-  opacity: 0.7;
-}
-
-/* ===== Right form card ===== */
-.cn-hero-right {
-  background: radial-gradient(circle at top, #27273f 0, #111224 60%, #05060d 100%);
-  border-radius: 22px;
-  padding: 22px 22px 24px;
-  border: 1px solid rgba(255, 255, 255, 0.09);
-  box-shadow:
-    0 0 30px rgba(255, 220, 145, 0.18),
-    0 30px 80px rgba(0, 0, 0, 0.9);
-}
-
-.cn-hero-right h2 {
-  font-size: 1.25rem;
-  margin-bottom: 16px;
-}
-
-/* Form fields */
-.field-group {
-  margin-bottom: 14px;
-  font-size: 0.9rem;
-}
-
-.field-group > label {
-  display: block;
-  margin-bottom: 6px;
-  font-weight: 500;
-}
-
-.field-group input[type="text"],
-.field-group input[type="email"],
-.field-group input[type="tel"],
-.field-group select {
-  width: 100%;
-  padding: 8px 10px;
-  border-radius: 6px;
-  border: 1px solid rgba(255, 255, 255, 0.14);
-  background: rgba(5, 6, 12, 0.9);
-  color: #f5f5f5;
-}
-
-.field-group input::placeholder {
-  color: rgba(230, 230, 230, 0.5);
-}
-
-.field-group select {
-  appearance: none;
-}
-
-/* Radio group inline */
-.field-group input[type="radio"] {
-  margin-right: 6px;
-}
-
-.field-group label input[type="radio"] {
-  margin-right: 6px;
-}
-
-.field-group label + label {
-  display: block;
-  margin-top: 4px;
-}
-
-/* Primary button */
-.cn-primary-btn {
-  width: 100%;
-  margin-top: 10px;
-  padding: 12px 16px;
-  border-radius: 999px;
-  background: linear-gradient(135deg, #ff7a3c, #ffb545);
-  color: #201311;
-  font-weight: 700;
-  font-size: 0.96rem;
-  box-shadow: 0 18px 40px rgba(255, 122, 60, 0.45);
-}
-
-/* ===== Courses layout (second section) ===== */
-.cn-courses {
-  max-width: 1200px;
-  margin: 10px auto 60px;
-  padding: 24px;
-  display: grid;
-  grid-template-columns: 260px minmax(0, 1.7fr) minmax(0, 1.1fr);
-  gap: 24px;
-}
-
-/* Left sidebar */
-.cn-courses-sidebar {
-  background: rgba(10, 11, 22, 0.98);
-  border-radius: 18px;
-  padding: 18px;
-  border: 1px solid rgba(255, 255, 255, 0.05);
-}
-
-.cn-courses-sidebar h3 {
-  font-size: 0.95rem;
+.section h1 {
   margin-bottom: 10px;
-  opacity: 0.8;
 }
 
-.cn-courses-sidebar button {
-  width: 100%;
-  text-align: left;
-  padding: 9px 10px;
-  margin-bottom: 6px;
-  border-radius: 10px;
-  background: transparent;
-  color: #f5f5f5;
-  opacity: 0.8;
+.section h2 {
+  margin-bottom: 14px;
+  color: #111827;
 }
 
-.cn-courses-sidebar button.active,
-.cn-courses-sidebar button:hover {
-  background: rgba(255, 255, 255, 0.06);
-  opacity: 1;
+.section h3 {
+  margin-bottom: 10px;
 }
 
-/* Middle course list */
-.cn-courses-list {
-  background: rgba(9, 10, 20, 0.98);
-  border-radius: 18px;
-  padding: 18px 18px 8px;
-  border: 1px solid rgba(255, 255, 255, 0.05);
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
-  max-height: 420px;
-  overflow-y: auto;
+/* ===== LISTS ===== */
+
+.bullet-list {
+  margin-left: 18px;
 }
 
-.course-card {
-  padding: 12px 12px 10px;
-  border-radius: 12px;
-  background: rgba(23, 24, 45, 0.95);
-  border: 1px solid rgba(255, 255, 255, 0.04);
-}
-
-.course-card h4 {
-  font-size: 0.95rem;
-  margin-bottom: 4px;
-}
-
-.course-card p {
-  font-size: 0.8rem;
-  opacity: 0.8;
-  margin-bottom: 6px;
-}
-
-.badge {
-  display: inline-block;
-  padding: 3px 8px;
-  font-size: 0.7rem;
-  border-radius: 999px;
-  background: rgba(255, 255, 255, 0.08);
-}
-
-.badge.enrollment-open {
-  background: rgba(71, 228, 166, 0.25);
-  color: #8cffc8;
-}
-
-.badge.enrollment-closed {
-  background: rgba(255, 85, 85, 0.18);
-  color: #ffc1c1;
-}
-
-/* Right bootcamp column */
-.cn-bootcamp {
-  background: rgba(10, 11, 22, 0.98);
-  border-radius: 18px;
-  padding: 18px;
-  border: 1px solid rgba(255, 255, 255, 0.05);
-}
-
-.cn-bootcamp h3 {
-  font-size: 0.95rem;
+.bullet-list li {
   margin-bottom: 8px;
 }
 
-.cn-bootcamp p {
-  font-size: 0.85rem;
-  opacity: 0.85;
-}
+/* ===== COURSE STRUCTURE ===== */
 
-/* ===== Responsive ===== */
-@media (max-width: 960px) {
-  .cn-hero {
-    grid-template-columns: 1fr;
-  }
-
-  .cn-header {
-    padding-inline: 16px;
-  }
-
-  .cn-nav {
-    display: none; /* simplify on mobile */
-  }
-
-  .cn-courses {
-    grid-template-columns: 1fr;
-  }
-}
-
-@media (max-width: 600px) {
-  .cn-hero-left h1 {
-    font-size: 1.9rem;
-  }
-
-  .cn-header {
-    position: static;
-  }
-}
-/* ===== Auth pages (login / register) ===== */
-.auth-wrapper {
-  min-height: calc(100vh - 80px);
+.course-outline {
   display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 24px;
+  gap: 20px;
+  flex-wrap: wrap;
 }
 
-.auth-card {
-  width: 100%;
-  max-width: 420px;
-  background: radial-gradient(circle at top, #27273f 0, #111224 60%, #05060d 100%);
-  border-radius: 22px;
-  padding: 26px 22px 24px;
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  box-shadow:
-    0 0 30px rgba(255, 220, 145, 0.18),
-    0 30px 80px rgba(0, 0, 0, 0.9);
+.course-column {
+  flex: 1;
+  min-width: 250px;
+  background: #f9fafb;
+  padding: 15px;
+  border-radius: 6px;
+  border: 1px solid #e5e7eb;
 }
 
-.auth-card h1 {
-  font-size: 1.5rem;
+.course-column ul {
+  margin-left: 18px;
+}
+
+.course-column li {
   margin-bottom: 6px;
 }
 
-.auth-sub {
-  font-size: 0.85rem;
-  opacity: 0.8;
-  margin-bottom: 16px;
+/* ===== LESSON LIST ===== */
+
+.lesson-list {
+  margin-top: 10px;
 }
 
-.auth-footer-text {
-  font-size: 0.8rem;
-  opacity: 0.85;
-  margin-top: 12px;
+.lesson-item {
+  padding: 10px;
+  border-radius: 6px;
+  border: 1px solid #e5e7eb;
+  background: #fafafa;
+}
+
+.lesson-item strong {
+  color: #111827;
+}
+
+/* Hover effect */
+.lesson-item:hover {
+  background: #f1f5f9;
+}
+
+/* ===== CTA BUTTON ===== */
+
+.btn {
+  display: inline-block;
+  margin-top: 10px;
+  padding: 10px 18px;
+  background: #2563eb;
+  color: white;
+  text-decoration: none;
+  border-radius: 6px;
+  font-size: 14px;
+}
+
+.btn:hover {
+  background: #1d4ed8;
+}
+
+/* ===== CTA SECTION ===== */
+
+.section-cta {
   text-align: center;
 }
 
-.auth-footer-text a {
-  color: #ffb545;
+/* ===== AD SLOT ===== */
+
+.ad-slot {
+  text-align: center;
+  background: #fefce8;
+  padding: 15px;
+  border-radius: 6px;
+  border: 1px dashed #eab308;
+  font-size: 14px;
+}
+
+/* ===== FOOTER ===== */
+
+.footer {
+  text-align: center;
+  padding: 20px;
+  background: white;
+  border-top: 1px solid #e5e7eb;
+  font-size: 14px;
+  margin-top: 30px;
+}
+
+.footer a {
+  text-decoration: none;
+  color: #2563eb;
+}
+
+.footer a:hover {
+  text-decoration: underline;
+}
+
+/* ===== CODE TAG STYLE ===== */
+
+code {
+  background: #f3f4f6;
+  padding: 2px 6px;
+  border-radius: 4px;
+  font-size: 13px;
+}
+
+/* ===== RESPONSIVE ===== */
+
+@media (max-width: 768px) {
+
+  .nav-container {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .nav-links {
+    margin-top: 10px;
+  }
+
+  .nav-links a {
+    margin-left: 0;
+    margin-right: 12px;
+  }
+
+  .course-outline {
+    flex-direction: column;
+  }
+
 }
